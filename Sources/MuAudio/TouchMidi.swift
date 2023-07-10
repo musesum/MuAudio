@@ -1,8 +1,11 @@
 //  Created by warren on 1/11/23.
 
 import UIKit
-import MuMenu
 import MuTime // DoubleBuffer
+
+public protocol TouchRemoteMidiDelegate {
+    func remoteMidiItem(_ midiItem: MidiItem)
+}
 
 public class TouchMidi {
 
@@ -12,10 +15,12 @@ public class TouchMidi {
 
     var midiRepeat = true /// repeat midi note sustain
     var lastItem: MidiItem? // repeat while sustain is on
+    var touchRemote: TouchRemoteMidiDelegate?
 
-    public init(isRemote: Bool) {
+    public init(isRemote: Bool, touchRemote: TouchRemoteMidiDelegate?) {
 
         self.isRemote = isRemote
+        self.touchRemote = touchRemote
         buffer.flusher = self
     }
 }
@@ -29,7 +34,8 @@ extension TouchMidi: BufferFlushDelegate {
         lastItem = item
 
         if isRemote {
-            SkyVC.shared.midi?.remoteMidiItem(item)
+            touchRemote?.remoteMidiItem(item)
+            //??? SkyVC.shared.midi?.remoteMidiItem(item)
         }
         return false // never invalidate internal timer
     }
@@ -40,7 +46,7 @@ extension TouchMidi {
         if let midi = midiKey[item.type.hashValue] {
             midi.buffer.append(item)
         } else {
-            let touchMidi = TouchMidi(isRemote: true)
+            let touchMidi = TouchMidi(isRemote: true, touchRemote: nil) //???
             midiKey[item.type.hashValue] = touchMidi
             touchMidi.buffer.append(item)
         }

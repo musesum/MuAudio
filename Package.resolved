@@ -1,12 +1,48 @@
 {
   "pins" : [
     {
+      "identity" : "audiokit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AudioKit/AudioKit.git",
+      "state" : {
+        "revision" : "c30a151fea40696ad0a45c60c2bba29112bb4279",
+        "version" : "5.6.1"
+      }
+    },
+    {
+      "identity" : "muflo",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuFlo.git",
+      "state" : {
+        "revision" : "d0eec4357770a017a1201cd956f099b2bab4be09",
+        "version" : "0.23.611"
+      }
+    },
+    {
       "identity" : "mupar",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuPar.git",
       "state" : {
         "revision" : "84c1daaebac2091286b4da2381a5fc4108f276d3",
         "version" : "0.23.201"
+      }
+    },
+    {
+      "identity" : "mupeer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuPeer.git",
+      "state" : {
+        "revision" : "ee094618f76a7d213dc2a9c514ae031cc5dfd8c6",
+        "version" : "0.23.710"
+      }
+    },
+    {
+      "identity" : "muskyflo",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuSkyFlo.git",
+      "state" : {
+        "revision" : "84c4854af93afeb986aaa16344e189250a1f419e",
+        "version" : "0.23.611"
       }
     },
     {

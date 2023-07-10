@@ -13,16 +13,21 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/musesum/MuPar.git", from: "0.23.0"),
-        .package(url: "https://github.com/musesum/MuTime.git", from: "0.23.0"),
-        .package(url: "https://github.com/apple/swift-collections.git", .upToNextMajor(from: "1.0.0")
-        )
+        .package(url: "https://github.com/musesum/MuFlo.git", from: "0.23.0"),
+        .package(url: "https://github.com/musesum/MuPeer.git", from: "0.23.0"),
+        .package(url: "https://github.com/AudioKit/AudioKit.git", from: "5.0.0"),
+        .package(url: "https://github.com/apple/swift-collections.git", .upToNextMajor(from: "1.0.0"))
     ],
 
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "MuAudio"),
+        .target(name: "MuAudio",
+        dependencies: [
+            .product(name: "MuPar", package: "MuPar"),
+            .product(name: "MuFlo", package: "MuFlo"),
+            .product(name: "MuPeer", package: "MuPeer"),
+            .product(name: "AudioKit", package: "AudioKit"),
+            .product(name: "Collections", package: "swift-collections")
+        ]),
         .testTarget(
             name: "MuAudioTests",
             dependencies: ["MuAudio"]),
