@@ -9,13 +9,13 @@
 import Foundation
 import AudioKit
 import MuFlo
-import MuPar // Visitor
+import MuVisit
 
-class MuMidi {
+public class MuMidi {
 
     let listener: MuMidiListener
     
-    init(root: Flo) {
+    public init(root: Flo) {
         let midi = MIDI.sharedInstance
         listener = MuMidiListener(root)
         

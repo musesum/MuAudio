@@ -9,7 +9,7 @@ import Foundation
 import AudioKit
 import AVFoundation
 import MuFlo
-import MuPar
+import MuVisit
 
 class MidiFlo {
     
