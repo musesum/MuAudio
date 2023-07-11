@@ -10,17 +10,17 @@ public protocol TouchRemoteMidiDelegate {
 public class TouchMidi {
 
     static var midiKey = [Int: TouchMidi]()
+    public static var touchRemote: TouchRemoteMidiDelegate?
     private let buffer = DoubleBuffer<MidiItem>(internalLoop: true)
     private let isRemote: Bool
 
     var midiRepeat = true /// repeat midi note sustain
     var lastItem: MidiItem? // repeat while sustain is on
-    var touchRemote: TouchRemoteMidiDelegate?
 
-    public init(isRemote: Bool, touchRemote: TouchRemoteMidiDelegate?) {
+
+    public init(isRemote: Bool) {
 
         self.isRemote = isRemote
-        self.touchRemote = touchRemote
         buffer.flusher = self
     }
 }
@@ -34,8 +34,7 @@ extension TouchMidi: BufferFlushDelegate {
         lastItem = item
 
         if isRemote {
-            touchRemote?.remoteMidiItem(item)
-            //??? SkyVC.shared.midi?.remoteMidiItem(item)
+            TouchMidi.touchRemote?.remoteMidiItem(item)
         }
         return false // never invalidate internal timer
     }
@@ -43,10 +42,10 @@ extension TouchMidi: BufferFlushDelegate {
 extension TouchMidi {
 
     public static func remoteItem(_ item: MidiItem) {
-        if let midi = midiKey[item.type.hashValue] {
-            midi.buffer.append(item)
+        if let touchMidi = midiKey[item.type.hashValue] {
+            touchMidi.buffer.append(item)
         } else {
-            let touchMidi = TouchMidi(isRemote: true, touchRemote: nil) //???
+            let touchMidi = TouchMidi(isRemote: true)
             midiKey[item.type.hashValue] = touchMidi
             touchMidi.buffer.append(item)
         }

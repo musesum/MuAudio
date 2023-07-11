@@ -40,7 +40,8 @@ public class MuMidi {
             }
         }
     }
-
+}
+extension MuMidi: TouchRemoteMidiDelegate {
     /// received a midi event marshalled from Sky
     public func remoteMidiItem(_ item: MidiItem) {
 

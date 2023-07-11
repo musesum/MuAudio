@@ -17,7 +17,7 @@ class MidiLog {
     }
 
     static func print(_ icon: String, _ msg: String, terminator: String = " ") {
-        Swift.print(icon + msg) //??? , terminator: terminator)
+        Swift.print(icon + msg)
         if !icon.isEmpty {
             lastIcon = icon
         }
