@@ -95,7 +95,7 @@ class MuMidiListener: MIDIListener {
                                    portID: MIDIUniqueID?,
                                    timeStamp: MIDITimeStamp?) {
         MidiLog.print("􀣋", "\(program)")
-        midiFlo.programChangeIn(program, channel, portID, timeStamp, Visitor(.midi))
+        midiFlo.programIn(program, channel, portID, timeStamp, Visitor(.midi))
     }
 
     func receivedMIDISystemCommand(_ data: [MIDIByte],

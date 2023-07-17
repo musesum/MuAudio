@@ -16,22 +16,22 @@ class MidiFlo {
     let midi = MIDI.sharedInstance
 
     // input
-    var noteOnIn˚        : Flo
-    var noteOffIn˚       : Flo
-    var controllerIn˚    : Flo
-    var afterTouchIn˚    : Flo
-    var pitchBendIn˚     : Flo
-    var programChangeIn˚ : Flo
-    var nrpnIn˚          : Flo
+    var noteOnIn˚     : Flo
+    var noteOffIn˚    : Flo
+    var controllerIn˚ : Flo
+    var afterTouchIn˚ : Flo
+    var pitchBendIn˚  : Flo
+    var programIn˚    : Flo
+    var nrpnIn˚       : Flo
 
     // output
-    var noteOnOut˚       : Flo?
-    var noteOffOut˚      : Flo?
-    var controllerOut˚   : Flo?
-    var afterTouchOut˚   : Flo?
-    var pitchBendOut˚    : Flo?
-    var programChangeOut˚: Flo?
-    var nrpnOut˚         : Flo?
+    var noteOnOut˚     : Flo?
+    var noteOffOut˚    : Flo?
+    var controllerOut˚ : Flo?
+    var afterTouchOut˚ : Flo?
+    var pitchBendOut˚  : Flo?
+    var programOut˚    : Flo?
+    var nrpnOut˚       : Flo?
 
     // Non-Registered Parameter Number (fine precision)
     var nrpnNumMsb: Float = -1
@@ -46,31 +46,31 @@ class MidiFlo {
         let midi = root.bind("midi")
         
         let input = midi.bind("input")
-        noteOnIn˚        = input.bind("note.on"      )
-        noteOffIn˚       = input.bind("note.off"     )
-        controllerIn˚    = input.bind("controller"   )
-        afterTouchIn˚    = input.bind("afterTouch"   )
-        pitchBendIn˚     = input.bind("pitchBend"    )
-        programChangeIn˚ = input.bind("programChange")
-        nrpnIn˚          = input.bind("nrpn"         )
-        
+        noteOnIn˚     = input.bind("note.on"   )
+        noteOffIn˚    = input.bind("note.off"  )
+        controllerIn˚ = input.bind("controller")
+        afterTouchIn˚ = input.bind("afterTouch")
+        pitchBendIn˚  = input.bind("pitchBend" )
+        programIn˚    = input.bind("program"   )
+        nrpnIn˚       = input.bind("nrpn"      )
+
         let output = midi.bind("output")
-        noteOnOut˚        = output.bind("note.on"      ) { f,v in self.noteOnOut    (f,v) }
-        noteOffOut˚       = output.bind("note.off"     ) { f,v in self.noteOffOut   (f,v) }
-        controllerOut˚    = output.bind("controller"   ) { f,v in self.controllerOut(f,v) }
-        afterTouchOut˚    = output.bind("afterTouch"   ) { f,v in self.aftertouchOut(f,v) }
-        pitchBendOut˚     = output.bind("pitchBend"    ) { f,v in self.pitchbendOut (f,v) }
-        programChangeOut˚ = output.bind("programChange") { f,v in self.programOut   (f,v) }
-        nrpnOut˚          = output.bind("nrpn"         )
+        noteOnOut˚     = output.bind("note.on"   ) { f,v in self.noteOnOut    (f,v) }
+        noteOffOut˚    = output.bind("note.off"  ) { f,v in self.noteOffOut   (f,v) }
+        controllerOut˚ = output.bind("controller") { f,v in self.controllerOut(f,v) }
+        afterTouchOut˚ = output.bind("afterTouch") { f,v in self.aftertouchOut(f,v) }
+        pitchBendOut˚  = output.bind("pitchBend" ) { f,v in self.pitchbendOut (f,v) }
+        programOut˚    = output.bind("program"   ) { f,v in self.programOut   (f,v) }
+        nrpnOut˚       = output.bind("nrpn"      )
     }
     // MARK: - output
 
-    /// `.noteOn        (num, velo, chan, port, time)`
-    /// `.noteOff       (num, velo, chan, port, time)`
-    /// `.controller    (cc,  velo, chan, port, time)`
-    /// `.aftertouch    (num, val,  chan, port, time)`
-    /// `.pitchwheel    (     val,  chan, port, time)`
-    /// `.programChange (num,       chan, port, time)`
+    /// `.noteOn     (num, velo, chan, port, time)`
+    /// `.noteOff    (num, velo, chan, port, time)`
+    /// `.controller (cc,  velo, chan, port, time)`
+    /// `.aftertouch (num, val,  chan, port, time)`
+    /// `.pitchwheel (     val,  chan, port, time)`
+    /// `.program    (num,       chan, port, time)`
 
     func noteOnOut(_ flo: Flo,
                    _ visit: Visitor) {
@@ -351,13 +351,13 @@ class MidiFlo {
         }
     }
     
-    func programChangeIn(_ num   : MIDIByte,
+    func programIn(_ num   : MIDIByte,
                          _ chan  : MIDIChannel,
                          _ port  : MIDIUniqueID?,
                          _ time  : MIDITimeStamp?,
                          _ visit : Visitor) {
         
-        programChangeIn˚.setAny(
+        programIn˚.setAny(
             [("num" , Double(num)),
              ("chan", Double(chan)),
              ("port", Double(port ?? 0)),

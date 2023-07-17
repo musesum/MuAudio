@@ -56,7 +56,7 @@ extension MuMidi: TouchRemoteMidiDelegate {
         case .controller: if let i = any as? MidiControllerItem { flo.controllerIn    (i.cc,  i.velo, i.chan, i.port, i.time, visit) }
         case .aftertouch: if let i = any as? MidiAftertouchItem { flo.aftertouchIn    (i.num, i.val,  i.chan, i.port, i.time, visit) }
         case .pitchbend:  if let i = any as? MidiPitchbendItem  { flo.pitchwheelIn    (       i.val,  i.chan, i.port, i.time, visit) }
-        case .program:    if let i = any as? MidiProgramItem    { flo.programChangeIn (i.num,         i.chan, i.port, i.time, visit) }
+        case .program:    if let i = any as? MidiProgramItem    { flo.programIn (i.num,         i.chan, i.port, i.time, visit) }
         }
     }
 }
