@@ -115,18 +115,18 @@ class MidiFlo {
 
             print ("🎚\(cc.digits(0)) ⫸ \(val.digits(0...2)) \(flo.path(2)): \(visit.from.log)\(flo.exprs?.logVisitedPaths(visit) ?? "")")
 
-//            Task {
-//                midi.sendNoteOnMessage(
-//                    noteNumber: MIDINoteNumber(val),
-//                    velocity: MIDIVelocity(64),
-//                    channel: MIDIChannel(chan))
-//
-//                try await Task.sleep(nanoseconds: 100_000_000) // 1/10th sec
-//
-//                midi.sendNoteOffMessage(
-//                    noteNumber: MIDINoteNumber(val),
-//                    channel: MIDIChannel(chan))
-//            }
+            Task {
+                midi.sendNoteOnMessage(
+                    noteNumber: MIDINoteNumber(val),
+                    velocity: MIDIVelocity(64),
+                    channel: MIDIChannel(chan))
+
+                try await Task.sleep(nanoseconds: 100_000_000) // 1/10th sec
+
+                midi.sendNoteOffMessage(
+                    noteNumber: MIDINoteNumber(val),
+                    channel: MIDIChannel(chan))
+            }
 
             midi.sendControllerMessage(
                 MIDIByte(cc),
