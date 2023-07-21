@@ -26,7 +26,7 @@ class MuAudio {
             oscillator.stop()
         }
         catch {
-            print("🚫 \(error)")
+            print("⁉️ \(error)")
         }
 
     }
