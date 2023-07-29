@@ -128,22 +128,11 @@ class MidiFlo {
                     channel: MIDIChannel(chan))
             }
 
-            midi.sendControllerMessage(
-                MIDIByte(cc),
-                value: MIDIByte(val),
-                channel: MIDIChannel(0))
+//            midi.sendControllerMessage(
+//                MIDIByte(cc),
+//                value: MIDIByte(val),
+//                channel: MIDIChannel(0))
 
-//            if cc < 100 {
-//                midi.sendControllerMessage(
-//                    MIDIByte(cc+100),
-//                    value: MIDIByte(val),
-//                    channel: MIDIChannel(0))
-//            } else  if cc > 100 {
-//                midi.sendControllerMessage(
-//                    MIDIByte(cc-100),
-//                    value: MIDIByte(val),
-//                    channel: MIDIChannel(0))
-//            }
         }
     }
     func aftertouchOut(_ flo: Flo,
