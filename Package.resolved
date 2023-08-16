@@ -3,10 +3,10 @@
     {
       "identity" : "audiokit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/AudioKit/AudioKit.git",
+      "location" : "https://github.com/warpling/AudioKit.git",
       "state" : {
-        "revision" : "c30a151fea40696ad0a45c60c2bba29112bb4279",
-        "version" : "5.6.1"
+        "branch" : "visionOS",
+        "revision" : "2eda44dc28a8129599957a50fb144cf9c90f7371"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuFlo.git",
       "state" : {
-        "revision" : "d0eec4357770a017a1201cd956f099b2bab4be09",
-        "version" : "0.23.611"
+        "revision" : "214e6f72052b8a29fb5711e80e1a0a0f67a0d9aa",
+        "version" : "0.23.811"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuPar.git",
       "state" : {
-        "revision" : "84c1daaebac2091286b4da2381a5fc4108f276d3",
-        "version" : "0.23.201"
+        "revision" : "38596069f16a9a2aeb831aa88e5e80cdbd582780",
+        "version" : "0.23.809"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuPeer.git",
       "state" : {
-        "revision" : "ee094618f76a7d213dc2a9c514ae031cc5dfd8c6",
-        "version" : "0.23.710"
+        "revision" : "6213a4af147d0bcef775c04a95a2f4237ee60773",
+        "version" : "0.23.811"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuSkyFlo.git",
       "state" : {
-        "revision" : "84c4854af93afeb986aaa16344e189250a1f419e",
-        "version" : "0.23.611"
+        "revision" : "b30c2e2598fc9039fa53999bb8d92e8e46021929",
+        "version" : "0.23.811"
       }
     },
     {
@@ -50,8 +50,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuTime.git",
       "state" : {
-        "revision" : "06cf96ad00ffc2541b38fc1ada3693178320aa8b",
-        "version" : "0.23.517"
+        "revision" : "4884df7b5085fb5a6b8f7864cd785782fa1f10ac",
+        "version" : "0.23.811"
+      }
+    },
+    {
+      "identity" : "muvisit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuVisit.git",
+      "state" : {
+        "revision" : "ba4d7a30208f21c72938980b955a2a5e61265698",
+        "version" : "0.23.811"
       }
     },
     {
@@ -61,6 +70,15 @@
       "state" : {
         "revision" : "937e904258d22af6e447a0b72c0bc67583ef64a2",
         "version" : "1.0.4"
+      }
+    },
+    {
+      "identity" : "swift-numerics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-numerics",
+      "state" : {
+        "revision" : "0a5bc04095a675662cf24757cc0640aa2204253b",
+        "version" : "1.0.2"
       }
     }
   ],
