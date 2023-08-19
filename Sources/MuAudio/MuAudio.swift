@@ -8,11 +8,18 @@
 
 import Foundation
 import AudioKit
+import MuPeer
 
-class MuAudio {
+public class MuAudio {
 
     public static let shared = MuAudio()
     let engine = AudioEngine()
+    init() {
+        PeersController.shared.peersDelegates.append(self)
+    }
+    deinit {
+        PeersController.shared.remove(peersDelegate: self)
+    }
 
     public func test() {
 
@@ -31,3 +38,21 @@ class MuAudio {
 
     }
 }
+extension MuAudio: PeersControllerDelegate {
+
+    public func didChange() {
+    }
+
+    public func received(data: Data,
+                         viaStream: Bool) -> Bool {
+        let decoder = JSONDecoder()
+        if let item = try? decoder.decode(MidiItem.self, from: data) {
+            TouchMidi.remoteItem(item)
+            return true
+        }
+        return false
+    }
+
+
+}
+

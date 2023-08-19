@@ -17,7 +17,6 @@ public class TouchMidi {
     var midiRepeat = true /// repeat midi note sustain
     var lastItem: MidiItem? // repeat while sustain is on
 
-
     public init(isRemote: Bool) {
 
         self.isRemote = isRemote

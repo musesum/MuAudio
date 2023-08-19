@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "audiokit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/warpling/AudioKit.git",
-      "state" : {
-        "branch" : "visionOS",
-        "revision" : "2eda44dc28a8129599957a50fb144cf9c90f7371"
-      }
-    },
-    {
       "identity" : "muflo",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuFlo.git",
