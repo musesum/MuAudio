@@ -15,8 +15,8 @@ let package = Package(
         .package(url: "https://github.com/musesum/MuPar.git", from: "0.23.0"),
         .package(url: "https://github.com/musesum/MuFlo.git", from: "0.23.0"),
         .package(url: "https://github.com/musesum/MuPeer.git", from: "0.23.0"),
-        //.package(url: "https://github.com/warpling/AudioKit.git", branch: "visionOS"),
-        .package(path: "../AudioKit-visionOS"),
+        .package(url: "https://github.com/warpling/AudioKit.git", branch: "visionOS"),
+        //.package(path: "../AudioKit-visionOS"),
         .package(url: "https://github.com/apple/swift-collections.git", .upToNextMajor(from: "1.0.0"))
     ],
 
