@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -26,7 +26,7 @@ let package = Package(
             .product(name: "MuPar", package: "MuPar"),
             .product(name: "MuFlo", package: "MuFlo"),
             .product(name: "MuPeer", package: "MuPeer"),
-            .product(name: "AudioKit", package: "AudioKit"),
+            .product(name: "AudioKit", package: "AudioKit-visionOS"),
             .product(name: "Collections", package: "swift-collections")
         ]),
         .testTarget(
