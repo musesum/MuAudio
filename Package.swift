@@ -26,7 +26,7 @@ let package = Package(
             .product(name: "MuPar", package: "MuPar"),
             .product(name: "MuFlo", package: "MuFlo"),
             .product(name: "MuPeer", package: "MuPeer"),
-            .product(name: "AudioKit", package: "AudioKit-visionOS"),
+            .product(name: "AudioKit", package: "AudioKit"),
             .product(name: "Collections", package: "swift-collections")
         ]),
         .testTarget(
