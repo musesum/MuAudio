@@ -9,7 +9,6 @@
 import Foundation
 import AudioKit
 import MuFlo
-import MuVisit
 
 public class MuMidi {
 

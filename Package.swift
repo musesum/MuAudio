@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 5.8
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -12,7 +12,6 @@ let package = Package(
             targets: ["MuAudio"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/musesum/MuPar.git", from: "0.23.0"),
         .package(url: "https://github.com/musesum/MuFlo.git", from: "0.23.0"),
         .package(url: "https://github.com/musesum/MuPeer.git", from: "0.23.0"),
         //.package(url: "https://github.com/warpling/AudioKit.git", branch: "visionOS"),
@@ -23,7 +22,6 @@ let package = Package(
     targets: [
         .target(name: "MuAudio",
         dependencies: [
-            .product(name: "MuPar", package: "MuPar"),
             .product(name: "MuFlo", package: "MuFlo"),
             .product(name: "MuPeer", package: "MuPeer"),
             .product(name: "AudioKit", package: "AudioKit-visionOS"),

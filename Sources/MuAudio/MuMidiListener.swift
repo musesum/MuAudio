@@ -10,7 +10,6 @@ import Foundation
 import AudioKit
 import AVFoundation
 import MuFlo
-import MuVisit
 
 class MuMidiListener: MIDIListener {
 

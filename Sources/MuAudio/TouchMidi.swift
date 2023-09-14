@@ -1,7 +1,7 @@
 //  Created by warren on 1/11/23.
 
 import UIKit
-import MuTime // DoubleBuffer
+import MuFlo // DoubleBuffer
 
 public protocol TouchRemoteMidiDelegate {
     func remoteMidiItem(_ midiItem: MidiItem)
