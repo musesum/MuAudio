@@ -1,9 +1,6 @@
-//
 //  MidiFlo.swift
-//  MuseSky2
-//
-//  Created by warren on 11/4/22.
-//  Copyright © 2022 Muse. All rights reserved.
+//  created by musesum on 11/4/22.
+
 
 import Foundation
 import AudioKit

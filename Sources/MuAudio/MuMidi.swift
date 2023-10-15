@@ -2,8 +2,8 @@
 //  MuMidi.swift
 //  MuseSky
 //
-//  Created by warren on 9/19/20.
-//  Copyright © 2020 Muse. All rights reserved.
+//  created by musesum on 9/19/20.
+
 
 
 import Foundation

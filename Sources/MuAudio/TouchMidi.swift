@@ -1,4 +1,4 @@
-//  Created by warren on 1/11/23.
+//  created by musesum on 1/11/23.
 
 import UIKit
 import MuFlo // DoubleBuffer
@@ -20,11 +20,11 @@ public class TouchMidi {
     public init(isRemote: Bool) {
 
         self.isRemote = isRemote
-        buffer.flusher = self
+        buffer.delegate = self
     }
 }
 
-extension TouchMidi: BufferFlushDelegate {
+extension TouchMidi: DoubleBufferDelegate {
 
     public typealias Item = MidiItem
 

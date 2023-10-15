@@ -2,9 +2,8 @@
 //  MuAudio.swift
 //  MuseSky
 //
-//  Created by warren on 7/22/21.
-//  Copyright © 2021 Muse. All rights reserved.
-//
+//  created by musesum on 7/22/21.
+
 
 import Foundation
 import AudioKit
