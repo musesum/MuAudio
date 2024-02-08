@@ -39,9 +39,8 @@ class MidiFlo {
     
     init(_ root: Flo) {
         
-        let midi = root.bind("midi")
-        
-        let input = midi.bind("input")
+        let midi      = root.bind("midi")
+        let input     = midi.bind ("input"     )
         noteOnIn˚     = input.bind("note.on"   )
         noteOffIn˚    = input.bind("note.off"  )
         controllerIn˚ = input.bind("controller")
@@ -109,7 +108,7 @@ class MidiFlo {
            let val  = exprs["val" , .twe],
            let chan = exprs["chan", .twe] {
 
-            print ("🎚\(cc.digits(0)) ⫸ \(val.digits(0...2)) \(flo.path(2)): \(visit.from.log)\(flo.exprs?.logVisitedPaths(visit) ?? "")")
+            //print ("🎚\(cc.digits(0)) ⫸ \(val.digits(0...2)) \(flo.path(2)): \(visit.from.log)\(flo.exprs?.logVisitedPaths(visit) ?? "")")
 
             Task {
                 midi.sendNoteOnMessage(
