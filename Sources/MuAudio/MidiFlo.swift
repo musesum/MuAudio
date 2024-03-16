@@ -49,7 +49,7 @@ class MidiFlo {
         programIn˚    = input.bind("program"   )
         nrpnIn˚       = input.bind("nrpn"      )
 
-        let output = midi.bind("output")
+        let output     = midi.bind("output")
         noteOnOut˚     = output.bind("note.on"   ) { f,v in self.noteOnOut    (f,v) }
         noteOffOut˚    = output.bind("note.off"  ) { f,v in self.noteOffOut   (f,v) }
         controllerOut˚ = output.bind("controller") { f,v in self.controllerOut(f,v) }
