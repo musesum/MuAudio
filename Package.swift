@@ -15,8 +15,7 @@ let package = Package(
         .package(url: "https://github.com/musesum/MuExtensions.git", .branch("main")),
         .package(url: "https://github.com/musesum/MuFlo.git", from: "0.23.0"),
         .package(url: "https://github.com/musesum/MuPeer.git", from: "0.23.0"),
-        //.package(url: "https://github.com/warpling/AudioKit.git", branch: "visionOS"),
-        .package(path: "../AudioKit-visionOS"),
+        .package(url: "https://github.com/AudioKit/AudioKit.git", branch: "main"),
         .package(url: "https://github.com/apple/swift-collections.git", .upToNextMajor(from: "1.0.0"))
     ],
 
@@ -26,7 +25,7 @@ let package = Package(
             .product(name: "MuExtensions", package: "MuExtensions"),
             .product(name: "MuFlo", package: "MuFlo"),
             .product(name: "MuPeer", package: "MuPeer"),
-            .product(name: "AudioKit", package: "AudioKit-visionOS"),
+            .product(name: "AudioKit", package: "AudioKit"),
             .product(name: "Collections", package: "swift-collections")
         ]),
         .testTarget(

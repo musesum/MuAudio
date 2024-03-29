@@ -104,7 +104,7 @@ class MidiFlo {
 
         guard let exprs = flo.exprs else { return }
 
-        if let cc   = exprs["cc"  , .twe],
+        if // let cc   = exprs["cc"  , .twe],
            let val  = exprs["val" , .twe],
            let chan = exprs["chan", .twe] {
 
