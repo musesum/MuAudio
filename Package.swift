@@ -12,7 +12,6 @@ let package = Package(
             targets: ["MuAudio"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/musesum/MuExtensions.git", .branch("main")),
         .package(url: "https://github.com/musesum/MuFlo.git", from: "0.23.0"),
         .package(url: "https://github.com/musesum/MuPeer.git", from: "0.23.0"),
         .package(url: "https://github.com/AudioKit/AudioKit.git", branch: "main"),
@@ -22,7 +21,6 @@ let package = Package(
     targets: [
         .target(name: "MuAudio",
         dependencies: [
-            .product(name: "MuExtensions", package: "MuExtensions"),
             .product(name: "MuFlo", package: "MuFlo"),
             .product(name: "MuPeer", package: "MuPeer"),
             .product(name: "AudioKit", package: "AudioKit"),
