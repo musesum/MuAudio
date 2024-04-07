@@ -1,12 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "muextensions",
+      "identity" : "audiokit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuExtensions.git",
+      "location" : "https://github.com/AudioKit/AudioKit.git",
       "state" : {
         "branch" : "main",
-        "revision" : "e262fbe5dd0b90d1d99e46dd792ccb8d1f9d06fd"
+        "revision" : "3abac9ad280374f2b57570d749f7a2dcd13f8d3a"
       }
     },
     {
@@ -14,17 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuFlo.git",
       "state" : {
-        "revision" : "77d688bb2226e884b18b7646c920852c7f8996ba",
-        "version" : "0.23.824"
-      }
-    },
-    {
-      "identity" : "mupar",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuPar.git",
-      "state" : {
-        "revision" : "38596069f16a9a2aeb831aa88e5e80cdbd582780",
-        "version" : "0.23.809"
+        "branch" : "main",
+        "revision" : "95101714d4b3fde4a4d6ece82bb3e0c33429f6dc"
       }
     },
     {
@@ -32,26 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuPeer.git",
       "state" : {
-        "revision" : "dfd053d91ec059e552c74d5fb419d89dbbdd6587",
-        "version" : "0.23.818"
-      }
-    },
-    {
-      "identity" : "mutime",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuTime.git",
-      "state" : {
-        "revision" : "4884df7b5085fb5a6b8f7864cd785782fa1f10ac",
-        "version" : "0.23.811"
-      }
-    },
-    {
-      "identity" : "muvisit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuVisit.git",
-      "state" : {
-        "revision" : "ba4d7a30208f21c72938980b955a2a5e61265698",
-        "version" : "0.23.811"
+        "branch" : "main",
+        "revision" : "c7b054f987c6a357870fba110e0024b083b8bf62"
       }
     },
     {
@@ -77,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/weichsel/ZIPFoundation.git",
       "state" : {
-        "revision" : "43ec568034b3731101dbf7670765d671c30f54f3",
-        "version" : "0.9.16"
+        "branch" : "development",
+        "revision" : "02b6abe5f6eef7e3cbd5f247c5cc24e246efcfe0"
       }
     }
   ],

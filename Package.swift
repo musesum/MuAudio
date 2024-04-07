@@ -12,8 +12,8 @@ let package = Package(
             targets: ["MuAudio"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/musesum/MuFlo.git", from: "0.23.0"),
-        .package(url: "https://github.com/musesum/MuPeer.git", from: "0.23.0"),
+        .package(url: "https://github.com/musesum/MuFlo.git", branch: "main"),
+        .package(url: "https://github.com/musesum/MuPeer.git", branch: "main"),
         .package(url: "https://github.com/AudioKit/AudioKit.git", branch: "main"),
         .package(url: "https://github.com/apple/swift-collections.git", .upToNextMajor(from: "1.0.0"))
     ],
