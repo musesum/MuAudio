@@ -10,7 +10,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/musesum/MuFlo.git", branch: "dev"),
         .package(url: "https://github.com/musesum/MuPeer.git", branch: "dev"),
-        .package(url: "https://github.com/AudioKit/AudioKit.git", branch: "dev")
+        .package(url: "https://github.com/AudioKit/AudioKit.git", branch: "main")
     ],
 
     targets: [
