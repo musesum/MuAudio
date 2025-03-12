@@ -126,8 +126,7 @@ public struct MidiPitchbendItem: Codable {
         self.time = time
     }
 
-    enum CodingKeys: String, CodingKey {
-        case val, chan, port, time }
+    enum CodingKeys: String, CodingKey { case val, chan, port, time }
 
     public init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
@@ -156,8 +155,7 @@ public struct MidiProgramItem: Codable {
         self.time = time
     }
 
-    enum CodingKeys: String, CodingKey {
-        case num, chan, port, time }
+    enum CodingKeys: String, CodingKey { case num, chan, port, time }
 
     public init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
