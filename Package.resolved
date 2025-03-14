@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuFlo.git",
       "state" : {
-        "branch" : "dev",
-        "revision" : "34a388e4390c74a0151213e3bc3fe969797a3778"
+        "branch" : "main",
+        "revision" : "4dff10e98e71d2fbd9f9cb4ee75955eefba0132f"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuPeer.git",
       "state" : {
-        "branch" : "dev",
-        "revision" : "83826cf44ba8b81904486d6d9310725792d9b3f2"
+        "branch" : "main",
+        "revision" : "8bf8a13af3b0b17eb3c6bbf6e50c5ac9640f7779"
       }
     },
     {
