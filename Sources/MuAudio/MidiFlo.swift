@@ -169,7 +169,7 @@ class MidiFlo {
              ("time", Double(time ?? 0))],
             setOptions, visit)
         
-        if !visit.type.remote {
+        if !visit.type.has(.remote) {
             let noteItem = MidiNoteItem(num, velo, chan, port, time)
             let midiItem = MidiItem(noteOn: noteItem)
             MidiItem.sendItemToPeers(midiItem)
@@ -191,7 +191,7 @@ class MidiFlo {
              ("time", Double(time ?? 0))],
             setOptions, visit)
         
-        if !visit.type.remote {
+        if !visit.type.has(.remote) {
             let noteItem = MidiNoteItem(num, velo, chan, port, time)
             let midiItem = MidiItem(noteOff: noteItem)
             MidiItem.sendItemToPeers(midiItem)
@@ -242,7 +242,7 @@ class MidiFlo {
              ("time", Double(time ?? 0))],
             setOptions, visit)
         
-        if !visit.type.remote {
+        if !visit.type.has(.remote) {
             let item = MidiControllerItem(cc,velo,chan,port,time)
             let midiItem = MidiItem(controller: item)
             MidiItem.sendItemToPeers(midiItem)
@@ -282,7 +282,7 @@ class MidiFlo {
              ("time", Double(time ?? 0))],
             setOptions, visit)
         
-        if !visit.type.remote {
+        if !visit.type.has(.remote) {
             let item = MidiAftertouchItem(num, val,chan,port,time)
             let midiItem = MidiItem(aftertouch: item)
             MidiItem.sendItemToPeers(midiItem)
@@ -303,7 +303,7 @@ class MidiFlo {
              ("time", Double(time ?? 0))],
             setOptions, visit)
         
-        if !visit.type.remote {
+        if !visit.type.has(.remote) {
             let item = MidiAftertouchItem(0, val,chan,port,time)
             let midiItem = MidiItem(aftertouch: item)
             MidiItem.sendItemToPeers(midiItem)
@@ -323,7 +323,7 @@ class MidiFlo {
              ("time", Double(time ?? 0))],
             setOptions, visit)
         
-        if !visit.type.remote {
+        if !visit.type.has(.remote) {
             let item = MidiPitchbendItem(val,chan,port,time)
             let midiItem = MidiItem(pitchwheel: item)
             MidiItem.sendItemToPeers(midiItem)
@@ -343,7 +343,7 @@ class MidiFlo {
              ("time", Double(time ?? 0))],
             setOptions, visit)
         
-        if !visit.type.remote {
+        if !visit.type.has(.remote) {
             let item = MidiProgramItem(num,chan,port,time)
             let midiItem = MidiItem(program: item)
             MidiItem.sendItemToPeers(midiItem)
