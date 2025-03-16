@@ -8,8 +8,8 @@ let package = Package(
     platforms: [.iOS(.v17)],
     products: [.library(name: "MuAudio", targets: ["MuAudio"])],
     dependencies: [
-        .package(url: "https://github.com/musesum/MuFlo.git", branch: "main"),
-        .package(url: "https://github.com/musesum/MuPeer.git", branch: "main"),
+        .package(url: "https://github.com/musesum/MuFlo.git", branch: "genius"),
+        .package(url: "https://github.com/musesum/MuPeer.git", branch: "genius"),
         .package(url: "https://github.com/AudioKit/AudioKit.git", branch: "main")
     ],
 
