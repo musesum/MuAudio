@@ -26,18 +26,6 @@ public struct MidiNoteItem: Codable {
         self.port = port
         self.time = time
     }
-
-    enum CodingKeys: String, CodingKey {
-        case  num, velo, chan, port, time }
-
-    public init(from decoder: Decoder) throws {
-        let c  = try decoder.container(keyedBy: CodingKeys.self)
-        try num  = c.decode(MIDINoteNumber        .self, forKey: .num )
-        try velo = c.decode(MIDIVelocity          .self, forKey: .velo)
-        try chan = c.decode(MIDIChannel           .self, forKey: .chan)
-        try port = c.decodeIfPresent(MIDIUniqueID .self, forKey: .port)
-        try time = c.decodeIfPresent(MIDITimeStamp.self, forKey: .time)
-    }
 }
 
 public struct MidiControllerItem: Codable {
@@ -59,18 +47,6 @@ public struct MidiControllerItem: Codable {
         self.chan = chan
         self.port = port
         self.time = time
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case  cc, velo, chan, port, time }
-
-    public init(from decoder: Decoder) throws {
-        let container  = try decoder.container(keyedBy: CodingKeys.self)
-        try cc   = container.decode         (MIDIByte     .self, forKey: .cc  )
-        try velo = container.decode         (MIDIVelocity .self, forKey: .velo)
-        try chan = container.decode         (MIDIChannel  .self, forKey: .chan)
-        try port = container.decodeIfPresent(MIDIUniqueID .self, forKey: .port)
-        try time = container.decodeIfPresent(MIDITimeStamp.self, forKey: .time)
     }
 }
 
@@ -94,18 +70,6 @@ public struct MidiAftertouchItem: Codable {
         self.port = port
         self.time = time
     }
-
-    enum CodingKeys: String, CodingKey {
-        case  num, val, chan, port, time }
-
-    public init(from decoder: Decoder) throws {
-        let container  = try decoder.container(keyedBy: CodingKeys.self)
-        try num  = container.decode         (MIDINoteNumber.self, forKey: .num )
-        try val  = container.decode         (MIDIByte      .self, forKey: .val )
-        try chan = container.decode         (MIDIChannel   .self, forKey: .chan)
-        try port = container.decodeIfPresent(MIDIUniqueID  .self, forKey: .port)
-        try time = container.decodeIfPresent(MIDITimeStamp .self, forKey: .time)
-    }
 }
 
 public struct MidiPitchbendItem: Codable {
@@ -124,16 +88,6 @@ public struct MidiPitchbendItem: Codable {
         self.chan = chan
         self.port = port
         self.time = time
-    }
-
-    enum CodingKeys: String, CodingKey { case val, chan, port, time }
-
-    public init(from decoder: Decoder) throws {
-        let container  = try decoder.container(keyedBy: CodingKeys.self)
-        try val  = container.decode         (MIDIWord     .self, forKey: .val )
-        try chan = container.decode         (MIDIChannel  .self, forKey: .chan)
-        try port = container.decodeIfPresent(MIDIUniqueID .self, forKey: .port)
-        try time = container.decodeIfPresent(MIDITimeStamp.self, forKey: .time)
     }
 }
 
@@ -154,16 +108,6 @@ public struct MidiProgramItem: Codable {
         self.port = port
         self.time = time
     }
-
-    enum CodingKeys: String, CodingKey { case num, chan, port, time }
-
-    public init(from decoder: Decoder) throws {
-        let container  = try decoder.container(keyedBy: CodingKeys.self)
-        try num  = container.decode         (MIDIByte      .self, forKey: .num )
-        try chan = container.decode         (MIDIChannel   .self, forKey: .chan)
-        try port = container.decodeIfPresent(MIDIUniqueID  .self, forKey: .port)
-        try time = container.decodeIfPresent(MIDITimeStamp .self, forKey: .time)
-    }
 }
 
 public enum MidiType: String, CodingKey {
@@ -172,45 +116,13 @@ public enum MidiType: String, CodingKey {
 public struct MidiItem: Codable {
 
     public var type: MidiType
-    public var time: TimeInterval
     public var item: Any?
-    public var from: Int
+    public var time = Date().timeIntervalSince1970
+    public var from = VisitType.midi.rawValue
 
-    public init(noteOn: MidiNoteItem) {
-        self.type = .noteOn
-        self.time = Date().timeIntervalSince1970
-        self.item = noteOn
-        self.from = VisitType.midi.rawValue
-    }
-    public init(noteOff: MidiNoteItem) {
-        self.type = .noteOff
-        self.time = Date().timeIntervalSince1970
-        self.item = noteOff
-        self.from = VisitType.midi.rawValue
-    }
-    public init(controller: MidiControllerItem) {
-        self.type = .controller
-        self.time = Date().timeIntervalSince1970
-        self.item = controller
-        self.from = VisitType.midi.rawValue
-    }
-    public init(aftertouch: MidiAftertouchItem) {
-        self.type = .aftertouch
-        self.time = Date().timeIntervalSince1970
-        self.item = aftertouch
-        self.from = VisitType.midi.rawValue
-    }
-    public init(pitchwheel: MidiPitchbendItem) {
-        self.type = .pitchbend
-        self.time = Date().timeIntervalSince1970
-        self.item = pitchwheel
-        self.from = VisitType.midi.rawValue
-    }
-    public init(program: MidiProgramItem) {
-        self.type = .program
-        self.time = Date().timeIntervalSince1970
-        self.item = program
-        self.from = VisitType.midi.rawValue
+    public init(_ item: Any?,_ type: MidiType) {
+        self.item = item
+        self.type = type
     }
 
     enum CodingKeys: String, CodingKey {
@@ -251,7 +163,9 @@ public struct MidiItem: Codable {
 }
 extension MidiItem {
 
-    static func sendItemToPeers(_ item: MidiItem) {
+    static func sendItemToPeers(_ type: MidiType,
+                                _ any: Any?) {
+        let item = MidiItem(any, type)
 
         let peers = PeersController.shared
         if peers.hasPeers {

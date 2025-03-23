@@ -6,6 +6,7 @@ import AudioKit
 import AVFoundation
 import MuFlo
 
+
 class MidiFlo {
     
     let midi = MIDI.sharedInstance
@@ -102,13 +103,11 @@ class MidiFlo {
                        _ visit: Visitor) {
 
         guard let exprs = flo.exprs else { return }
-
-        if let cc   = exprs["cc",   .tween],
-           let val  = exprs["val",  .tween],
+        #if true // LUMI
+        if let val  = exprs["val",  .tween],
            let chan = exprs["chan", .tween] {
-
-            //print ("🎚\(cc.digits(0)) ⫸ \(val.digits(0...2)) \(flo.path(2)): \(visit.type.log)\(flo.exprs?.logVisitedPaths(visit) ?? "")")
-
+            
+            // this is a hack to send out cc messages as midi note to light up the Roli Lumi Block
             Task {
                 midi.sendNoteOnMessage(
                     noteNumber: MIDINoteNumber(val),
@@ -121,13 +120,8 @@ class MidiFlo {
                     noteNumber: MIDINoteNumber(val),
                     channel: MIDIChannel(chan))
             }
-
-//            midi.sendControllerMessage(
-//                MIDIByte(cc),
-//                value: MIDIByte(val),
-//                channel: MIDIChannel(0))
-
         }
+        #endif
     }
     func aftertouchOut(_ flo: Flo,
                        _ visit: Visitor) {
@@ -169,9 +163,7 @@ class MidiFlo {
             setOptions, visit)
         
         if !visit.type.has(.remote) {
-            let noteItem = MidiNoteItem(num, velo, chan, port, time)
-            let midiItem = MidiItem(noteOn: noteItem)
-            MidiItem.sendItemToPeers(midiItem)
+            MidiItem.sendItemToPeers(.noteOn, MidiNoteItem(num, velo, chan, port, time))
         }
     }
     
@@ -191,9 +183,7 @@ class MidiFlo {
             setOptions, visit)
         
         if !visit.type.has(.remote) {
-            let noteItem = MidiNoteItem(num, velo, chan, port, time)
-            let midiItem = MidiItem(noteOff: noteItem)
-            MidiItem.sendItemToPeers(midiItem)
+            MidiItem.sendItemToPeers(.noteOff, MidiNoteItem(num, velo, chan, port, time))
         }
     }
     
@@ -242,9 +232,7 @@ class MidiFlo {
             setOptions, visit)
         
         if !visit.type.has(.remote) {
-            let item = MidiControllerItem(cc,velo,chan,port,time)
-            let midiItem = MidiItem(controller: item)
-            MidiItem.sendItemToPeers(midiItem)
+            MidiItem.sendItemToPeers(.controller, MidiControllerItem(cc,velo,chan,port,time) )
         }
     }
     
@@ -282,9 +270,7 @@ class MidiFlo {
             setOptions, visit)
         
         if !visit.type.has(.remote) {
-            let item = MidiAftertouchItem(num, val,chan,port,time)
-            let midiItem = MidiItem(aftertouch: item)
-            MidiItem.sendItemToPeers(midiItem)
+            MidiItem.sendItemToPeers(.aftertouch, MidiAftertouchItem(num, val,chan,port,time))
         }
     }
     
@@ -303,9 +289,7 @@ class MidiFlo {
             setOptions, visit)
         
         if !visit.type.has(.remote) {
-            let item = MidiAftertouchItem(0, val,chan,port,time)
-            let midiItem = MidiItem(aftertouch: item)
-            MidiItem.sendItemToPeers(midiItem)
+            MidiItem.sendItemToPeers(.aftertouch, MidiAftertouchItem(0, val,chan,port,time))
         }
     }
     
@@ -323,9 +307,7 @@ class MidiFlo {
             setOptions, visit)
         
         if !visit.type.has(.remote) {
-            let item = MidiPitchbendItem(val,chan,port,time)
-            let midiItem = MidiItem(pitchwheel: item)
-            MidiItem.sendItemToPeers(midiItem)
+            MidiItem.sendItemToPeers(.pitchbend, MidiPitchbendItem(val,chan,port,time))
         }
     }
     
@@ -343,9 +325,7 @@ class MidiFlo {
             setOptions, visit)
         
         if !visit.type.has(.remote) {
-            let item = MidiProgramItem(num,chan,port,time)
-            let midiItem = MidiItem(program: item)
-            MidiItem.sendItemToPeers(midiItem)
+            MidiItem.sendItemToPeers(.program, MidiProgramItem(num, chan, port, time))
         }
     }
 }

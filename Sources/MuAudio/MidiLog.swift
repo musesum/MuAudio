@@ -13,9 +13,10 @@ class MidiLog {
     }
 
     static func log(_ icon: String, _ msg: String) {
-        PrintLog(icon + msg)
-        if !icon.isEmpty {
-            lastIcon = icon
+        if icon == "∅" {
+            DebugLog { P(" " + icon + msg) }
+        } else {
+            DebugLog { P(" " + icon + msg, terminator: "") }
         }
     }
 }

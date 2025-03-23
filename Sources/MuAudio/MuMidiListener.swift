@@ -32,7 +32,7 @@ class MuMidiListener: MIDIListener {
                             portID: MIDIUniqueID?,
                             timeStamp: MIDITimeStamp?) {
 
-        MidiLog.log("\n♪", note(noteNumber, velocity))
+        MidiLog.log("♪", note(noteNumber, velocity))
         midiFlo.noteOnIn(noteNumber, velocity, channel, portID, timeStamp, Visitor(0, .midi))
     }
 
@@ -81,7 +81,7 @@ class MuMidiListener: MIDIListener {
                                 portID: MIDIUniqueID?,
                                 timeStamp: MIDITimeStamp?) {
         let icon = MidiLog.nextIcon("􁂩")
-        MidiLog.log(icon, "\(Int64(pitchWheelValue)-8192)")
+        MidiLog.log(icon, "\(channel):\(Int64(pitchWheelValue)-8192)")
         midiFlo.pitchwheelIn(pitchWheelValue, channel, portID, timeStamp, Visitor(0, .midi))
     }
 
