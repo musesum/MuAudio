@@ -103,7 +103,7 @@ class MidiFlo {
                        _ visit: Visitor) {
 
         guard let exprs = flo.exprs else { return }
-        #if true // LUMI
+        #if true //Roli Lumi
         if let val  = exprs["val",  .tween],
            let chan = exprs["chan", .tween] {
             
