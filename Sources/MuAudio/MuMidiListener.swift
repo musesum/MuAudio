@@ -1,7 +1,5 @@
 //  MuMidiListener.swift
 //  created by musesum on 11/4/22.
-
-
 import Foundation
 import AudioKit
 import AVFoundation
@@ -15,15 +13,18 @@ class MuMidiListener: MIDIListener {
         midiFlo = MidiFlo(root)
     }
 
-    func note(_ note: MIDINoteNumber,
-              _ velocity: MIDIVelocity) -> String {
-
+    func noteStr(_ note: MIDINoteNumber) -> String {
         let names = ["C", "D♭", "D", "E♭", "E", "F",
                      "G♭", "G", "A♭", "A", "B♭", "B"]
         let octave = Int(note / 12)
         let note = Int(note % 12)
-        let name = names[note]
-        return "\(name)\(octave):\(velocity)"
+        return "\(names[note])\(octave)"
+    }
+    func note(_ channel: MIDIChannel,
+              _ note: MIDINoteNumber,
+              _ velocity: MIDIVelocity) -> String {
+
+        return "\(channel.digits(2)) \(noteStr(note)): \(velocity)"
     }
 
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
@@ -32,7 +33,7 @@ class MuMidiListener: MIDIListener {
                             portID: MIDIUniqueID?,
                             timeStamp: MIDITimeStamp?) {
 
-        MidiLog.log("♪", note(noteNumber, velocity))
+        MidiLog.log("♪", note(channel, noteNumber, velocity))
         midiFlo.noteOnIn(noteNumber, velocity, channel, portID, timeStamp, Visitor(0, .midi))
     }
 
@@ -42,7 +43,7 @@ class MuMidiListener: MIDIListener {
                              portID: MIDIUniqueID?,
                              timeStamp: MIDITimeStamp?) {
 
-        MidiLog.log("∅", note(noteNumber, velocity))
+        MidiLog.log("∅", note(channel, noteNumber, velocity))
         midiFlo.noteOffIn(noteNumber, velocity, channel, portID, timeStamp, Visitor(0, .midi))
     }
 
@@ -53,26 +54,25 @@ class MuMidiListener: MIDIListener {
                                 timeStamp: MIDITimeStamp?) {
 
 
-        let icon = MidiLog.nextIcon("🎚\(cc) =")
-        MidiLog.log(icon, " \(value)")
+        MidiLog.log("🎚", "\(channel.digits(2)) cc_\(cc): \(value)")
         midiFlo.controllerIn(cc, value, channel, portID, timeStamp, Visitor(0, .midi))
     }
 
-    func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
+    func receivedMIDIAftertouch(noteNumber : MIDINoteNumber,
                                 pressure: MIDIByte,
                                 channel: MIDIChannel,
                                 portID: MIDIUniqueID?,
                                 timeStamp: MIDITimeStamp?) {
 
-        MidiLog.log("􀖓", note(noteNumber, pressure))
-        midiFlo.aftertouchIn(noteNumber, channel, portID, timeStamp, Visitor(0, .midi))
+        MidiLog.log("􀖓", "\(channel.digits(2)) \(noteStr(noteNumber)) after: \(pressure)")
+        midiFlo.aftertouchIn(pressure, channel, portID, timeStamp, Visitor(0, .midi))
     }
 
     func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                 channel: MIDIChannel,
                                 portID: MIDIUniqueID?,
                                 timeStamp: MIDITimeStamp?) {
-        MidiLog.log("􀖓", "\(channel):\(pressure)")
+        MidiLog.log("􀖓", "\(channel.digits(2)) after: \(pressure)")
         midiFlo.aftertouchIn(pressure, channel, portID, timeStamp, Visitor(0, .midi))
     }
 
@@ -80,8 +80,7 @@ class MuMidiListener: MIDIListener {
                                 channel: MIDIChannel,
                                 portID: MIDIUniqueID?,
                                 timeStamp: MIDITimeStamp?) {
-        let icon = MidiLog.nextIcon("􁂩")
-        MidiLog.log(icon, "\(channel):\(Int64(pitchWheelValue)-8192)")
+        MidiLog.log("􁂩", "\(channel.digits(2)) wheel: \(Int64(pitchWheelValue)-8192)")
         midiFlo.pitchwheelIn(pitchWheelValue, channel, portID, timeStamp, Visitor(0, .midi))
     }
 

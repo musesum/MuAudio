@@ -6,7 +6,6 @@ import AudioKit
 import AVFoundation
 import MuFlo
 
-
 class MidiFlo {
     
     let midi = MIDI.sharedInstance
@@ -16,7 +15,7 @@ class MidiFlo {
     var noteOffIn˚    : Flo
     var controllerIn˚ : Flo
     var afterTouchIn˚ : Flo
-    var pitchBendIn˚  : Flo
+    var pitchWheelIn˚ : Flo
     var programIn˚    : Flo
     var nrpnIn˚       : Flo
 
@@ -25,7 +24,7 @@ class MidiFlo {
     var noteOffOut˚    : Flo?
     var controllerOut˚ : Flo?
     var afterTouchOut˚ : Flo?
-    var pitchBendOut˚  : Flo?
+    var pitchWheelOut˚ : Flo?
     var programOut˚    : Flo?
     var nrpnOut˚       : Flo?
 
@@ -45,7 +44,7 @@ class MidiFlo {
         noteOffIn˚    = input.bind("note.off"  )
         controllerIn˚ = input.bind("controller")
         afterTouchIn˚ = input.bind("afterTouch")
-        pitchBendIn˚  = input.bind("pitchBend" )
+        pitchWheelIn˚ = input.bind("pitchWheel")
         programIn˚    = input.bind("program"   )
         nrpnIn˚       = input.bind("nrpn"      )
 
@@ -54,7 +53,7 @@ class MidiFlo {
         noteOffOut˚    = output.bind("note.off"  ) { f,v in self.noteOffOut   (f,v) }
         controllerOut˚ = output.bind("controller") { f,v in self.controllerOut(f,v) }
         afterTouchOut˚ = output.bind("afterTouch") { f,v in self.aftertouchOut(f,v) }
-        pitchBendOut˚  = output.bind("pitchBend" ) { f,v in self.pitchbendOut (f,v) }
+        pitchWheelOut˚ = output.bind("pitchWheel") { f,v in self.pitchbendOut (f,v) }
         programOut˚    = output.bind("program"   ) { f,v in self.programOut   (f,v) }
         nrpnOut˚       = output.bind("nrpn"      )
     }
@@ -299,7 +298,7 @@ class MidiFlo {
                       _ time  : MIDITimeStamp?,
                       _ visit : Visitor) {
         
-        pitchBendIn˚.setAnyExprs(
+        pitchWheelIn˚.setAnyExprs(
             [("val",  Double(val)),
              ("chan", Double(chan)),
              ("port", Double(port ?? 0)),
