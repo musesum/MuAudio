@@ -1,5 +1,6 @@
 //  MuMidiListener.swift
 //  created by musesum on 11/4/22.
+
 import Foundation
 import AudioKit
 import AVFoundation
@@ -100,8 +101,8 @@ class MuMidiListener: MIDIListener {
 
     func receivedMIDISetupChange() {
         MidiLog.log("􁀘", " Midi Setup change\n")
-        MIDI.sharedInstance.openInput()
-        MIDI.sharedInstance.openOutput()
+        Midi.openInput()
+        Midi.openOutput()
     }
 
     func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {

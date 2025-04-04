@@ -2,13 +2,15 @@
 //  created by musesum on 11/4/22.
 
 import Foundation
-import AudioKit
+@preconcurrency import AudioKit
 import AVFoundation
 import MuFlo
 
+
+public let Midi = MIDI.sharedInstance
+@MainActor //_____
 class MidiFlo {
-    
-    let midi = MIDI.sharedInstance
+
 
     // input
     var noteOnIn˚     : Flo
@@ -75,7 +77,7 @@ class MidiFlo {
            let velo = exprs["velo", .tween],
            let chan = exprs["chan", .tween] {
 
-            midi.sendNoteOnMessage(
+            Midi.sendNoteOnMessage(
                 noteNumber: MIDINoteNumber(num),
                 velocity: MIDIVelocity(velo),
                 channel: MIDIChannel(chan))
@@ -91,7 +93,7 @@ class MidiFlo {
            let chan = exprs["chan", .tween],
            let time = exprs["time", .tween] {
 
-            midi.sendNoteOffMessage(
+            Midi.sendNoteOffMessage(
                 noteNumber: MIDINoteNumber(num),
                 channel: MIDIChannel(chan),
                 time: MIDITimeStamp (time))
@@ -108,14 +110,14 @@ class MidiFlo {
             
             // this is a hack to send out cc messages as midi note to light up the Roli Lumi Block
             Task {
-                midi.sendNoteOnMessage(
+                Midi.sendNoteOnMessage(
                     noteNumber: MIDINoteNumber(val),
                     velocity: MIDIVelocity(64),
                     channel: MIDIChannel(chan))
 
                 try await Task.sleep(nanoseconds: 100_000_000) // 1/10th sec
 
-                midi.sendNoteOffMessage(
+                Midi.sendNoteOffMessage(
                     noteNumber: MIDINoteNumber(val),
                     channel: MIDIChannel(chan))
             }
@@ -135,7 +137,7 @@ class MidiFlo {
         if let val  = exprs["val",  .tween],
            let chan = exprs["chan", .tween] {
 
-            midi.sendPitchBendMessage(
+            Midi.sendPitchBendMessage(
                 value: UInt16(val),
                 channel: MIDIChannel(chan))
         }

@@ -2,7 +2,7 @@
 
 import SwiftUI
 import AVFoundation
-import AudioKit
+@preconcurrency import AudioKit
 import MuFlo
 import MuPeer
 
@@ -167,12 +167,11 @@ extension MidiItem {
                                 _ any: Any?) {
         let item = MidiItem(any, type)
 
-        let peers = PeersController.shared
-        if peers.hasPeers {
+        if Peers.shared.hasPeers {
             do {
                 let encoder = JSONEncoder()
                 let data = try encoder.encode(item)
-                peers.sendMessage(data, viaStream: true)
+                Peers.shared.sendMessage(data, viaStream: true)
             } catch {
                 print(error)
             }

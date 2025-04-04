@@ -1,8 +1,6 @@
 //  MuMidi.swift
 //  created by musesum on 9/19/20.
 
-
-
 import Foundation
 import AudioKit
 import MuFlo
@@ -10,25 +8,25 @@ import MuFlo
 public class MuMidi {
 
     let listener: MuMidiListener
-    
+
     public init(root: Flo) {
-        let midi = MIDI.sharedInstance
+
         listener = MuMidiListener(root)
         
-        midi.openInput()
-        midi.addListener(listener)
-        midi.openOutput()
+        Midi.openInput()
+        Midi.addListener(listener)
+        Midi.openOutput()
 
         ccOutputZero() // not used
     }
     
     public func ccOutputZero() {
-        let midi = MIDI.sharedInstance
+
         let value = 120
         Task {
             for cc in 0...15 {
 
-                midi.sendControllerMessage(
+                Midi.sendControllerMessage(
                     MIDIByte(cc),
                     value: MIDIByte(value),
                     channel: MIDIChannel(0))
@@ -36,8 +34,7 @@ public class MuMidi {
             }
         }
     }
-}
-extension MuMidi: TouchRemoteMidiDelegate {
+
     /// received a midi event marshalled from Sky
     public func remoteMidiItem(_ item: MidiItem) {
 
