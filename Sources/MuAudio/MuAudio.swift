@@ -12,9 +12,12 @@ import MuFlo
 
 public class MuAudio {
 
-    public static let shared = MuAudio()
-    let engine = AudioEngine()
-    init() {
+    let midi: MuMidi
+    let audioEngine: AudioEngine
+
+    public init(_ root˚: Flo) {
+        self.midi = MuMidi(root: root˚)
+        self.audioEngine = AudioEngine()
         PeersController.shared.peersDelegates.append(self)
     }
     deinit {
@@ -24,9 +27,9 @@ public class MuAudio {
     public func test() {
 
         let oscillator = AudioKit.PlaygroundOscillator()
-        engine.output = oscillator
+        audioEngine.output = oscillator
         do {
-            try engine.start()
+            try audioEngine.start()
             oscillator.start()
             oscillator.frequency = 440
             sleep(4)
