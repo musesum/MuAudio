@@ -3,6 +3,7 @@
 
 import Foundation
 import MuFlo
+
 class MidiLog {
     static func log(_ icon: String, _ msg: String) {
         switch icon {

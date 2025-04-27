@@ -27,7 +27,6 @@ public struct MidiNoteItem: Codable {
         self.time = time
     }
 }
-
 public struct MidiControllerItem: Codable {
 
     var cc  : MIDIByte
@@ -49,7 +48,6 @@ public struct MidiControllerItem: Codable {
         self.time = time
     }
 }
-
 public struct MidiAftertouchItem: Codable {
 
     var num : MIDINoteNumber
@@ -71,7 +69,6 @@ public struct MidiAftertouchItem: Codable {
         self.time = time
     }
 }
-
 public struct MidiPitchbendItem: Codable {
 
     var val : MIDIWord
@@ -90,7 +87,6 @@ public struct MidiPitchbendItem: Codable {
         self.time = time
     }
 }
-
 public struct MidiProgramItem: Codable {
 
     var num : MIDIByte
