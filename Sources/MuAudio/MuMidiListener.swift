@@ -4,13 +4,15 @@ import Foundation
 import AudioKit
 import AVFoundation
 import MuFlo
+import MuPeer
 
 class MuMidiListener: MIDIListener {
 
     public var midiFlo: MidiFlo
 
-    init(_ root: Flo) {
-        midiFlo = MidiFlo(root)
+    init(_ root: Flo,
+         _ peers: Peers) {
+        midiFlo = MidiFlo(root, peers)
     }
 
     func noteStr(_ note: MIDINoteNumber) -> String {

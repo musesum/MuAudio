@@ -14,14 +14,18 @@ public class MuAudio: @unchecked Sendable {
 
     let midi: MuMidi
     let audioEngine: AudioEngine
+    let peers: Peers
 
-    public init(_ root˚: Flo) {
-        self.midi = MuMidi(root: root˚)
+    public init(_ root˚: Flo,
+                _ peers: Peers) {
+
+        self.midi = MuMidi(root˚, peers)
         self.audioEngine = AudioEngine()
-        Peers.shared.delegates["MuAudio"] = self
+        self.peers = peers
+        peers.delegates["MuAudio"] = self
     }
     deinit {
-        Peers.shared.removeDelegate("MuAudio") 
+        peers.removeDelegate("MuAudio") 
     }
 
     public func test() {

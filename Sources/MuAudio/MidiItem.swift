@@ -13,9 +13,10 @@ public struct MidiItem: Codable {
     public var time = Date().timeIntervalSince1970
     public var from = VisitType.midi.rawValue
 
-    public init(_ item: Any?, _ type: MidiType) {
-        self.item = item
+    public init(_ type: MidiType, _ item: Any?, _ peers: Peers) {
         self.type = type
+        self.item = item
+        sendItemToPeers(peers)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -53,22 +54,16 @@ public struct MidiItem: Codable {
     var visitFrom: VisitType {
         VisitType(rawValue: from)
     }
-}
-extension MidiItem {
+    func sendItemToPeers(_ peers: Peers) {
 
-    static func sendItemToPeers(_ type: MidiType,
-                                _ any: Any?) {
-        let item = MidiItem(any, type)
-
-        if Peers.shared.hasPeers {
+        if peers.hasPeers {
             do {
                 let encoder = JSONEncoder()
-                let data = try encoder.encode(item)
-                Peers.shared.sendMessage(data, viaStream: true)
+                let data = try encoder.encode(self)
+                peers.sendMessage(data, viaStream: true)
             } catch {
                 print(error)
             }
         }
     }
-
 }

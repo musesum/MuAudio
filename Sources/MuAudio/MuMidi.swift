@@ -4,14 +4,15 @@
 import Foundation
 import AudioKit
 import MuFlo
+import MuPeer
 
 public class MuMidi {
 
     let listener: MuMidiListener
     
-    public init(root: Flo) {
+    public init(_ root: Flo, _ peers: Peers) {
         let midi = MIDI.sharedInstance
-        listener = MuMidiListener(root)
+        listener = MuMidiListener(root, peers)
         
         midi.openInput()
         midi.addListener(listener)
