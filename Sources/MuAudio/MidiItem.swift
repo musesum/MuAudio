@@ -6,109 +6,6 @@ import AudioKit
 import MuFlo
 import MuPeer
 
-public struct MidiNoteItem: Codable {
-
-    var num:  MIDINoteNumber
-    var velo: MIDIVelocity
-    var chan: MIDIChannel
-    var port: MIDIUniqueID?
-    var time: MIDITimeStamp?
-
-    init (_ num:  MIDINoteNumber,
-          _ velo: MIDIVelocity,  
-          _ chan: MIDIChannel,   
-          _ port: MIDIUniqueID?, 
-          _ time: MIDITimeStamp?) {
-
-        self.num  = num
-        self.velo = velo
-        self.chan = chan
-        self.port = port
-        self.time = time
-    }
-}
-public struct MidiControllerItem: Codable {
-
-    var cc  : MIDIByte
-    var velo: MIDIVelocity
-    var chan: MIDIChannel
-    var port: MIDIUniqueID?
-    var time: MIDITimeStamp?
-
-    init (_ cc  : MIDIByte,
-          _ velo: MIDIVelocity,
-          _ chan: MIDIChannel,
-          _ port: MIDIUniqueID?,
-          _ time: MIDITimeStamp?) {
-
-        self.cc   = cc
-        self.velo = velo
-        self.chan = chan
-        self.port = port
-        self.time = time
-    }
-}
-public struct MidiAftertouchItem: Codable {
-
-    var num : MIDINoteNumber
-    var val : MIDIByte
-    var chan: MIDIChannel
-    var port: MIDIUniqueID?
-    var time: MIDITimeStamp?
-
-    init (_ num : MIDINoteNumber,
-          _ val : MIDIByte,
-          _ chan: MIDIChannel,
-          _ port: MIDIUniqueID?,
-          _ time: MIDITimeStamp?) {
-
-        self.num  = num
-        self.val  = val
-        self.chan = chan
-        self.port = port
-        self.time = time
-    }
-}
-public struct MidiPitchbendItem: Codable {
-
-    var val : MIDIWord
-    var chan: MIDIChannel
-    var port: MIDIUniqueID?
-    var time: MIDITimeStamp?
-
-    init (_ val : MIDIWord,
-          _ chan: MIDIChannel,
-          _ port: MIDIUniqueID?,
-          _ time: MIDITimeStamp?) {
-
-        self.val  = val
-        self.chan = chan
-        self.port = port
-        self.time = time
-    }
-}
-public struct MidiProgramItem: Codable {
-
-    var num : MIDIByte
-    var chan: MIDIChannel
-    var port: MIDIUniqueID?
-    var time: MIDITimeStamp?
-
-    init (_ num : MIDIByte,
-          _ chan: MIDIChannel,
-          _ port: MIDIUniqueID?,
-          _ time: MIDITimeStamp?) {
-
-        self.num  = num
-        self.chan = chan
-        self.port = port
-        self.time = time
-    }
-}
-
-public enum MidiType: String, CodingKey {
-    case noteOn, noteOff, controller, aftertouch, pitchbend, program }
-
 public struct MidiItem: Codable {
 
     public var type: MidiType
@@ -116,7 +13,7 @@ public struct MidiItem: Codable {
     public var time = Date().timeIntervalSince1970
     public var from = VisitType.midi.rawValue
 
-    public init(_ item: Any?,_ type: MidiType) {
+    public init(_ item: Any?, _ type: MidiType) {
         self.item = item
         self.type = type
     }
@@ -163,12 +60,11 @@ extension MidiItem {
                                 _ any: Any?) {
         let item = MidiItem(any, type)
 
-        let peers = PeersController.shared
-        if peers.hasPeers {
+        if Peers.shared.hasPeers {
             do {
                 let encoder = JSONEncoder()
                 let data = try encoder.encode(item)
-                peers.sendMessage(data, viaStream: true)
+                Peers.shared.sendMessage(data, viaStream: true)
             } catch {
                 print(error)
             }

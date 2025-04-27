@@ -10,7 +10,7 @@ import AudioKit
 import MuPeer
 import MuFlo
 
-public class MuAudio {
+public class MuAudio: @unchecked Sendable {
 
     let midi: MuMidi
     let audioEngine: AudioEngine
@@ -18,10 +18,10 @@ public class MuAudio {
     public init(_ root˚: Flo) {
         self.midi = MuMidi(root: root˚)
         self.audioEngine = AudioEngine()
-        PeersController.shared.peersDelegates.append(self)
+        Peers.shared.delegates["MuAudio"] = self
     }
     deinit {
-        PeersController.shared.remove(peersDelegate: self)
+        Peers.shared.removeDelegate("MuAudio") 
     }
 
     public func test() {
@@ -41,19 +41,16 @@ public class MuAudio {
 
     }
 }
-extension MuAudio: PeersControllerDelegate {
+extension MuAudio: PeersDelegate {
 
     public func didChange() {
     }
 
-    public func received(data: Data,
-                         viaStream: Bool) -> Bool {
+    public func received(data: Data, viaStream: Bool) {
         let decoder = JSONDecoder()
         if let item = try? decoder.decode(MidiItem.self, from: data) {
             TouchMidi.remoteItem(item)
-            return true
         }
-        return false
     }
 
 
