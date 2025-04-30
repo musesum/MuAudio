@@ -1,9 +1,5 @@
-//
 //  MuAudio.swift
-//  MuseSky
-//
 //  created by musesum on 7/22/21.
-
 
 import Foundation
 import AudioKit
@@ -28,7 +24,7 @@ public class MuAudio: @unchecked Sendable {
         peers.removeDelegate("MuAudio") 
     }
 
-    public func test() {
+    public func testAudio() {
 
         let oscillator = AudioKit.PlaygroundOscillator()
         audioEngine.output = oscillator
@@ -42,13 +38,11 @@ public class MuAudio: @unchecked Sendable {
         catch {
             PrintLog("⁉️ \(error)")
         }
-
     }
 }
 extension MuAudio: PeersDelegate {
 
-    public func didChange() {
-    }
+    public func didChange() {}
 
     public func received(data: Data, viaStream: Bool) {
         let decoder = JSONDecoder()
