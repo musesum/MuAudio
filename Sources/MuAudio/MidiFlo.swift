@@ -35,7 +35,7 @@ class MidiFlo {
     var nrpnValMsb: Float = -1
     var nrpnValLsb: Float = -1
     
-    public var setOptions: SetOptions = .fire
+    public var setOps: SetOps = .fire
 
     public var peers: Peers
 
@@ -163,7 +163,7 @@ class MidiFlo {
              ("chan", Double(chan)),
              ("port", Double(port ?? 0)),
              ("time", Double(time ?? 0))],
-            setOptions, visit)
+            setOps, visit)
         
         if !visit.type.has(.remote) {
             _ = MidiItem(.noteOn, MidiNoteItem(num, velo, chan, port, time), peers)
@@ -183,7 +183,7 @@ class MidiFlo {
              ("chan", Double(chan)),
              ("port", Double(port ?? 0)),
              ("time", Double(time ?? 0))],
-            setOptions, visit)
+            setOps, visit)
         
         if !visit.type.has(.remote) {
             _ = MidiItem(.noteOff, MidiNoteItem(num, velo, chan, port, time), peers)
@@ -220,7 +220,7 @@ class MidiFlo {
                      ("chan", Double(chan)),
                      ("port", Double(port ?? 0)),
                      ("time", Double(time ?? 0))],
-                    setOptions, visit)
+                    setOps, visit)
                 return
             }
         default: break //clearNrpn()
@@ -232,7 +232,7 @@ class MidiFlo {
              ("chan", Double(chan)),
              ("port", Double(port ?? 0)),
              ("time", Double(time ?? 0))],
-            setOptions, visit)
+            setOps, visit)
         
         if !visit.type.has(.remote) {
             _ = MidiItem(.controller, MidiControllerItem(cc,velo,chan,port,time), peers)
@@ -270,7 +270,7 @@ class MidiFlo {
              ("chan", Double(chan)),
              ("port", Double(port ?? 0)),
              ("time", Double(time ?? 0))],
-            setOptions, visit)
+            setOps, visit)
         
         if !visit.type.has(.remote) {
             _ = MidiItem(.aftertouch, MidiAftertouchItem(num, val,chan,port,time), peers)
@@ -289,7 +289,7 @@ class MidiFlo {
              ("chan", Double(chan)),
              ("port", Double(port ?? 0)),
              ("time", Double(time ?? 0))],
-            setOptions, visit)
+            setOps, visit)
         
         if !visit.type.has(.remote) {
             _ = MidiItem(.aftertouch, MidiAftertouchItem(0, val,chan,port,time), peers)
@@ -307,7 +307,7 @@ class MidiFlo {
              ("chan", Double(chan)),
              ("port", Double(port ?? 0)),
              ("time", Double(time ?? 0))],
-            setOptions, visit)
+            setOps, visit)
         
         if !visit.type.has(.remote) {
             _ = MidiItem(.pitchbend, MidiPitchbendItem(val,chan,port,time), peers)
@@ -325,7 +325,7 @@ class MidiFlo {
              ("chan", Double(chan)),
              ("port", Double(port ?? 0)),
              ("time", Double(time ?? 0))],
-            setOptions, visit)
+            setOps, visit)
         
         if !visit.type.has(.remote) {
             _ = MidiItem(.program, MidiProgramItem(num, chan, port, time), peers)
