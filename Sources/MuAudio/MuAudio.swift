@@ -44,7 +44,7 @@ extension MuAudio: PeersDelegate {
 
     public func didChange() {}
 
-    public func received(data: Data, viaStream: Bool) {
+    public func received(data: Data) {
         let decoder = JSONDecoder()
         if let item = try? decoder.decode(MidiItem.self, from: data) {
             TouchMidi.remoteItem(item)

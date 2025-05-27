@@ -60,7 +60,7 @@ public struct MidiItem: Codable {
             do {
                 let encoder = JSONEncoder()
                 let data = try encoder.encode(self)
-                peers.sendMessage(data, viaStream: true)
+                peers.sendMessage(data)
             } catch {
                 print(error)
             }
