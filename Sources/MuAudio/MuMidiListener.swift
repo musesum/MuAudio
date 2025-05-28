@@ -4,7 +4,7 @@ import Foundation
 import AudioKit
 import AVFoundation
 import MuFlo
-import MuPeer
+import MuPeers
 
 class MuMidiListener: MIDIListener {
 

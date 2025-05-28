@@ -4,7 +4,7 @@ import SwiftUI
 import AVFoundation
 import AudioKit
 import MuFlo
-import MuPeer
+import MuPeers
 
 public struct MidiNoteItem: Codable {
 

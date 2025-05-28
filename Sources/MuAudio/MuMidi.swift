@@ -4,7 +4,7 @@
 import Foundation
 import AudioKit
 import MuFlo
-import MuPeer
+import MuPeers
 
 public class MuMidi {
 

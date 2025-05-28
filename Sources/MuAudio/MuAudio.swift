@@ -3,7 +3,7 @@
 
 import Foundation
 import AudioKit
-import MuPeer
+import MuPeers
 import MuFlo
 
 public class MuAudio: @unchecked Sendable {
@@ -50,7 +50,4 @@ extension MuAudio: PeersDelegate {
             TouchMidi.remoteItem(item)
         }
     }
-
-
 }
-

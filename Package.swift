@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -10,7 +10,7 @@ let package = Package(
     products: [.library(name: "MuAudio", targets: ["MuAudio"])],
     dependencies: [
         .package(url: "https://github.com/musesum/MuFlo.git", branch: "main"),
-        .package(url: "https://github.com/musesum/MuPeer.git", branch: "main"),
+        .package(url: "https://github.com/musesum/MuPeers.git", branch: "main"),
         .package(url: "https://github.com/AudioKit/AudioKit.git", branch: "main")
     ],
 
@@ -18,7 +18,7 @@ let package = Package(
         .target(name: "MuAudio",
         dependencies: [
             .product(name: "MuFlo", package: "MuFlo"),
-            .product(name: "MuPeer", package: "MuPeer"),
+            .product(name: "MuPeers", package: "MuPeers"),
             .product(name: "AudioKit", package: "AudioKit")
         ]),
         .testTarget(

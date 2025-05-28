@@ -1,6 +1,6 @@
 # MuAudio
 
-MuAudio bridgea the following packages: 
+MuAudio bridges the following packages: 
 ```
 MuFlo - a node based flow graph
 MuPeer - Bonjour messaging over Bluetooth and WiFi 
