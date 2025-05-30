@@ -55,14 +55,14 @@ public struct MidiItem: Codable {
         VisitType(rawValue: from)
     }
     func sendItemToPeers(_ peers: Peers) {
-
-        if peers.hasPeers {
-            do {
-                let encoder = JSONEncoder()
-                let data = try encoder.encode(self)
-                peers.sendMessage(data)
-            } catch {
-                print(error)
+        Task {
+            await peers.sendItem() {
+                do {
+                    return try JSONEncoder().encode(self)
+                } catch {
+                    print(error)
+                    return nil
+                }
             }
         }
     }
