@@ -18,10 +18,10 @@ public class MuAudio: @unchecked Sendable {
         self.midi = MuMidi(root˚, peers)
         self.audioEngine = AudioEngine()
         self.peers = peers
-        peers.setDelegate(self, for: "MuAudio")
+        peers.setDelegate(self, for: .midi)
     }
     deinit {
-        peers.removeDelegate("MuAudio") 
+        peers.removeDelegate(self) 
     }
 
     public func testAudio() {
@@ -41,8 +41,6 @@ public class MuAudio: @unchecked Sendable {
     }
 }
 extension MuAudio: PeersDelegate {
-
-    public func didChange() {}
 
     public func received(data: Data) {
         let decoder = JSONDecoder()

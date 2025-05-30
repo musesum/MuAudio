@@ -56,7 +56,7 @@ public struct MidiItem: Codable {
     }
     func sendItemToPeers(_ peers: Peers) {
         Task {
-            await peers.sendItem() {
+            await peers.sendItem(.midi) {
                 do {
                     return try JSONEncoder().encode(self)
                 } catch {
