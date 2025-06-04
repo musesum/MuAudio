@@ -1,7 +1,7 @@
 //  created by musesum on 1/11/23.
 
 import UIKit
-import MuFlo // DoubleBuffer
+import MuFlo 
 
 public protocol TouchRemoteMidiDelegate {
     func remoteMidiItem(_ midiItem: MidiItem)
@@ -11,7 +11,7 @@ public class TouchMidi {
 
     static var midiKey = [Int: TouchMidi]()
     public static var touchRemote: TouchRemoteMidiDelegate?
-    private let buffer = DoubleBuffer<MidiItem>(internalLoop: true)
+    private let buffer = CircleBuffer<MidiItem>(capacity: 10, internalLoop: true)
     private let isRemote: Bool
 
     var midiRepeat = true /// repeat midi note sustain
@@ -24,29 +24,31 @@ public class TouchMidi {
     }
 }
 
-extension TouchMidi: DoubleBufferDelegate {
+extension TouchMidi: CircleBufferDelegate {
 
     public typealias Item = MidiItem
 
-    public func flushItem<Item>(_ item: Item) -> Bool {
+    public func flushItem<Item>(_ item: Item, _ type: BufferType) -> FlushState {
         let item = item as! MidiItem
         lastItem = item
 
-        if isRemote {
+        if isRemote || type == .remote {
             TouchMidi.touchRemote?.remoteMidiItem(item)
+        } else {
+            // local midi items already processed
         }
-        return false // never invalidate internal timer
+        return .continue // never invalidate internal timer
     }
 }
 extension TouchMidi {
 
     public static func remoteItem(_ item: MidiItem) {
         if let touchMidi = midiKey[item.type.hashValue] {
-            touchMidi.buffer.append(item)
+            touchMidi.buffer.addItem(item, bufferType: .remote)
         } else {
             let touchMidi = TouchMidi(isRemote: true)
             midiKey[item.type.hashValue] = touchMidi
-            touchMidi.buffer.append(item)
+            touchMidi.buffer.addItem(item, bufferType: .remote)
         }
     }
 }

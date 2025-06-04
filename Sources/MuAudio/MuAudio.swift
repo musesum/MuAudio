@@ -18,7 +18,7 @@ public class MuAudio: @unchecked Sendable {
         self.midi = MuMidi(root˚, peers)
         self.audioEngine = AudioEngine()
         self.peers = peers
-        peers.setDelegate(self, for: .midi)
+        peers.setDelegate(self, for: .midiFrame)
     }
     deinit {
         peers.removeDelegate(self) 
