@@ -28,27 +28,27 @@ extension TouchMidi: CircleBufferDelegate {
 
     public typealias Item = MidiItem
 
-    public func flushItem<Item>(_ item: Item, _ type: BufferType) -> FlushState {
+    public func flushItem<Item>(_ item: Item, _ type: BufType) -> BufState {
         let item = item as! MidiItem
         lastItem = item
 
-        if isRemote || type == .remote {
+        if isRemote || type == .remoteBuf {
             TouchMidi.touchRemote?.remoteMidiItem(item)
         } else {
             // local midi items already processed
         }
-        return .continue // never invalidate internal timer
+        return .nextBuf // never invalidate internal timer
     }
 }
 extension TouchMidi {
 
     public static func remoteItem(_ item: MidiItem) {
         if let touchMidi = midiKey[item.type.hashValue] {
-            touchMidi.buffer.addItem(item, bufferType: .remote)
+            touchMidi.buffer.addItem(item, bufType: .remoteBuf)
         } else {
             let touchMidi = TouchMidi(isRemote: true)
             midiKey[item.type.hashValue] = touchMidi
-            touchMidi.buffer.addItem(item, bufferType: .remote)
+            touchMidi.buffer.addItem(item, bufType: .remoteBuf)
         }
     }
 }
