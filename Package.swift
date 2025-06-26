@@ -5,9 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "MuAudio",
-    platforms: [.iOS(.v17),
-                .macOS(.v26),
-                .visionOS(.v2)],
+    platforms: [.iOS(.v17)],
     products: [.library(name: "MuAudio", targets: ["MuAudio"])],
     dependencies: [
         .package(url: "https://github.com/musesum/MuFlo.git", branch: "main"),
