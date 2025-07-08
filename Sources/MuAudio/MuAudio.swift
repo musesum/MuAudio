@@ -8,14 +8,15 @@ import MuFlo
 
 public class MuAudio: @unchecked Sendable {
 
-    let midi: MuMidi
+    let midi = MIDI()
+    let muMidi: MuMidi
     let audioEngine: AudioEngine
     let peers: Peers
 
     public init(_ root˚: Flo,
                 _ peers: Peers) {
 
-        self.midi = MuMidi(root˚, peers)
+        self.muMidi = MuMidi(midi, root˚, peers)
         self.audioEngine = AudioEngine()
         self.peers = peers
         peers.setDelegate(self, for: .midiFrame)

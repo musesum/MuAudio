@@ -7,10 +7,10 @@ public protocol TouchRemoteMidiDelegate {
     func remoteMidiItem(_ midiItem: MidiItem)
 }
 
-public class TouchMidi {
+public class TouchMidi: @unchecked Sendable {
 
-    static var midiKey = [Int: TouchMidi]()
-    public static var touchRemote: TouchRemoteMidiDelegate?
+    nonisolated(unsafe) static var midiKey = [Int: TouchMidi]()
+    nonisolated(unsafe) static var touchRemote: TouchRemoteMidiDelegate?
     private let buffer = CircleBuffer<MidiItem>(capacity: 10, internalLoop: true)
     private let isRemote: Bool
 

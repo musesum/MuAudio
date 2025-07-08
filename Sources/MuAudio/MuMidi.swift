@@ -9,30 +9,29 @@ import MuPeers
 public class MuMidi {
 
     let listener: MuMidiListener
-    
-    public init(_ root: Flo, _ peers: Peers) {
-        let midi = MIDI.sharedInstance
-        listener = MuMidiListener(root, peers)
-        
+    let midi: MIDI
+
+    public init(_ midi: MIDI,
+                _ root: Flo,
+                _ peers: Peers) {
+
+        self.midi = midi
+        listener = MuMidiListener(midi, root, peers)
+
         midi.openInput()
         midi.addListener(listener)
         midi.openOutput()
 
-        ccOutputZero() // not used
+        ccOutputZero() // not used?
     }
     
     public func ccOutputZero() {
-        let midi = MIDI.sharedInstance
         let value = 120
-        Task {
-            for cc in 0...15 {
-
-                midi.sendControllerMessage(
-                    MIDIByte(cc),
-                    value: MIDIByte(value),
-                    channel: MIDIChannel(0))
-                try await Task.sleep(nanoseconds: 1_000)
-            }
+        for cc in 0...15 {
+            self.midi.sendControllerMessage(
+                MIDIByte(cc),
+                value: MIDIByte(value),
+                channel: MIDIChannel(0))
         }
     }
 }

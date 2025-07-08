@@ -6,16 +6,18 @@ import AudioKit
 import MuFlo
 import MuPeers
 
-public struct MidiItem: Codable {
+public struct MidiItem: Codable, @unchecked Sendable {
 
-    public var type: MidiType
-    public var item: Any?
-    public var time = Date().timeIntervalSince1970
-    public var from = VisitType.midi.rawValue
+    public let type: MidiType
+    public let item: Any?
+    public let time: TimeInterval
+    public let from: Int
 
     public init(_ type: MidiType, _ item: Any?, _ peers: Peers) {
         self.type = type
         self.item = item
+        self.time = Date().timeIntervalSince1970
+        self.from = VisitType.midi.rawValue
         sendItemToPeers(peers)
     }
 

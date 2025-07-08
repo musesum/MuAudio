@@ -7,18 +7,18 @@ import AVFoundation
 import MuFlo
 import MuPeers
 
-class MidiFlo {
-    
-    let midi = MIDI.sharedInstance
+class MidiFlo: @unchecked Sendable {
+
+    let midi: MIDI
 
     // input
-    var noteOnIn˚     : Flo
-    var noteOffIn˚    : Flo
-    var controllerIn˚ : Flo
-    var afterTouchIn˚ : Flo
-    var pitchWheelIn˚ : Flo
-    var programIn˚    : Flo
-    var nrpnIn˚       : Flo
+    let noteOnIn˚     : Flo
+    let noteOffIn˚    : Flo
+    let controllerIn˚ : Flo
+    let afterTouchIn˚ : Flo
+    let pitchWheelIn˚ : Flo
+    let programIn˚    : Flo
+    let nrpnIn˚       : Flo
 
     // output
     var noteOnOut˚     : Flo?
@@ -39,11 +39,14 @@ class MidiFlo {
 
     public var peers: Peers
 
-    init(_ root: Flo, _ peers: Peers) {
+    init(_ midi: MIDI,
+         _ root: Flo,
+         _ peers: Peers) {
 
-        self.peers     = peers
-        let midi      = root.bind("midi")
-        let input     = midi.bind("input")
+        self.midi     = midi
+        self.peers    = peers
+
+        let input     = root.bind("midi.input")
         noteOnIn˚     = input.bind("note.on"   )
         noteOffIn˚    = input.bind("note.off"  )
         controllerIn˚ = input.bind("controller")
@@ -52,7 +55,7 @@ class MidiFlo {
         programIn˚    = input.bind("program"   )
         nrpnIn˚       = input.bind("nrpn"      )
 
-        let output     = midi.bind("output")
+        let output     = root.bind("midi.output")
         noteOnOut˚     = output.bind("note.on"   ) { f,v in self.noteOnOut    (f,v) }
         noteOffOut˚    = output.bind("note.off"  ) { f,v in self.noteOffOut   (f,v) }
         controllerOut˚ = output.bind("controller") { f,v in self.controllerOut(f,v) }
@@ -100,28 +103,29 @@ class MidiFlo {
                 channel: MIDIChannel(chan),
                 time: MIDITimeStamp (time))
         }
-        
     }
     func controllerOut(_ flo: Flo,
                        _ visit: Visitor) {
 
         guard let exprs = flo.exprs else { return }
-        #if true //Roli Lumi
+
+        #if true  // Roli Lumi
         if let val  = exprs["val",  .tween],
            let chan = exprs["chan", .tween] {
-            
-            // this is a hack to send out cc messages as midi note to light up the Roli Lumi Block
-            Task {
-                midi.sendNoteOnMessage(
-                    noteNumber: MIDINoteNumber(val),
-                    velocity: MIDIVelocity(64),
-                    channel: MIDIChannel(chan))
 
-                try await Task.sleep(nanoseconds: 100_000_000) // 1/10th sec
+            // this is a hack to send out cc messages as midi note
+            // to light up the Roli Lumi Block
 
-                midi.sendNoteOffMessage(
+            self.midi.sendNoteOnMessage(
+                noteNumber: MIDINoteNumber(val),
+                velocity: MIDIVelocity(64),
+                channel: MIDIChannel(chan))
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                self?.midi.sendNoteOffMessage(
                     noteNumber: MIDINoteNumber(val),
-                    channel: MIDIChannel(chan))
+                    channel: MIDIChannel(chan)
+                )
             }
         }
         #endif

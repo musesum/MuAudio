@@ -9,10 +9,12 @@ import MuPeers
 class MuMidiListener: MIDIListener {
 
     public var midiFlo: MidiFlo
-
-    init(_ root: Flo,
+    var midi: MIDI
+    init(_ midi: MIDI,
+         _ root: Flo,
          _ peers: Peers) {
-        midiFlo = MidiFlo(root, peers)
+        self.midi = midi
+        midiFlo = MidiFlo(midi, root, peers)
     }
 
     func noteStr(_ note: MIDINoteNumber) -> String {
@@ -102,8 +104,8 @@ class MuMidiListener: MIDIListener {
 
     func receivedMIDISetupChange() {
         MidiLog.log("􁀘", " Midi Setup change\n")
-        MIDI.sharedInstance.openInput()
-        MIDI.sharedInstance.openOutput()
+        midiFlo.midi.openInput()
+        midiFlo.midi.openOutput()
     }
 
     func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
