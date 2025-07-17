@@ -21,9 +21,7 @@ public class MuAudio: @unchecked Sendable {
         self.peers = peers
         peers.setDelegate(self, for: .midiFrame)
     }
-    deinit {
-        peers.removeDelegate(self) 
-    }
+    //..... deinit { peers.removeDelegate(self)  }
 
     public func testAudio() {
 
@@ -46,7 +44,9 @@ extension MuAudio: PeersDelegate {
     public func received(data: Data) {
         let decoder = JSONDecoder()
         if let item = try? decoder.decode(MidiItem.self, from: data) {
-            TouchMidi.remoteItem(item)
+            Task {
+                await TouchMidi.remoteItem(item)
+            }
         }
     }
 }

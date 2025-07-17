@@ -6,11 +6,11 @@ import MuFlo
 public protocol TouchRemoteMidiDelegate {
     func remoteMidiItem(_ midiItem: MidiItem)
 }
-
+@MainActor
 public class TouchMidi: @unchecked Sendable {
 
-    nonisolated(unsafe) static var midiKey = [Int: TouchMidi]()
-    nonisolated(unsafe) static var touchRemote: TouchRemoteMidiDelegate?
+    static var midiKey = [Int: TouchMidi]()
+    static var touchRemote: TouchRemoteMidiDelegate?
     private let buffer = CircleBuffer<MidiItem>(capacity: 10, internalLoop: true)
     private let isRemote: Bool
 
