@@ -21,7 +21,6 @@ public class MuAudio: @unchecked Sendable {
         self.peers = peers
         peers.setDelegate(self, for: .midiFrame)
     }
-    //..... deinit { peers.removeDelegate(self)  }
 
     public func testAudio() {
 
