@@ -11,7 +11,7 @@ public class TouchMidi: @unchecked Sendable {
 
     static var midiKey = [Int: TouchMidi]()
     static var touchRemote: TouchRemoteMidiDelegate?
-    private let buffer = CircleBuffer<MidiItem>(capacity: 10, internalLoop: true)
+    private let buffer = CircleBuffer<MidiItem>()
     private let isRemote: Bool
 
     var midiRepeat = true /// repeat midi note sustain
