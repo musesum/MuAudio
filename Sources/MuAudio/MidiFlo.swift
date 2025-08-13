@@ -161,7 +161,7 @@ class MidiFlo: @unchecked Sendable {
                   _ time: MIDITimeStamp?,
                   _ visit: Visitor) {
         
-        noteOnIn˚.setAnyExprs(
+        noteOnIn˚.setNameNums(
             [("num",  Double(num)),
              ("velo", Double(velo)),
              ("chan", Double(chan)),
@@ -181,7 +181,7 @@ class MidiFlo: @unchecked Sendable {
                    _ time: MIDITimeStamp?,
                    _ visit: Visitor) {
         
-        noteOffIn˚.setAnyExprs(
+        noteOffIn˚.setNameNums(
             [("num",  Double(num)),
              ("velo", Double(velo)),
              ("chan", Double(chan)),
@@ -218,7 +218,7 @@ class MidiFlo: @unchecked Sendable {
                                  nrpnNumMsb, nrpnNumLsb, nrpnValMsb, nrpnValLsb)
                 MidiLog.log(icon,seq)
                 
-                nrpnIn˚.setAnyExprs(
+                nrpnIn˚.setNameNums(
                     [("num",  Double(num)),
                      ("val",  Double(velo)),
                      ("chan", Double(chan)),
@@ -230,7 +230,7 @@ class MidiFlo: @unchecked Sendable {
         default: break //clearNrpn()
         }
         
-        controllerIn˚.setAnyExprs(
+        controllerIn˚.setNameNums(
             [("cc",   Double(cc)),
              ("val",  Double(velo)),
              ("chan", Double(chan)),
@@ -268,7 +268,7 @@ class MidiFlo: @unchecked Sendable {
         
         //let exprs = Express(Flo("afterTouchIn"),)
         
-        afterTouchIn˚.setAnyExprs(
+        afterTouchIn˚.setNameNums(
             [("num",  Double(num)),
              ("val",  Double(val)),
              ("chan", Double(chan)),
@@ -287,7 +287,7 @@ class MidiFlo: @unchecked Sendable {
                       _ time  : MIDITimeStamp?,
                       _ visit : Visitor) {
         
-        afterTouchIn˚.setAnyExprs(
+        afterTouchIn˚.setNameNums(
             [("num",  Double(0)),
              ("val",  Double(val)),
              ("chan", Double(chan)),
@@ -306,7 +306,7 @@ class MidiFlo: @unchecked Sendable {
                       _ time  : MIDITimeStamp?,
                       _ visit : Visitor) {
         
-        pitchWheelIn˚.setAnyExprs(
+        pitchWheelIn˚.setNameNums(
             [("val",  Double(val)),
              ("chan", Double(chan)),
              ("port", Double(port ?? 0)),
@@ -324,7 +324,7 @@ class MidiFlo: @unchecked Sendable {
                          _ time  : MIDITimeStamp?,
                          _ visit : Visitor) {
         
-        programIn˚.setAnyExprs(
+        programIn˚.setNameNums(
             [("num",  Double(num)),
              ("chan", Double(chan)),
              ("port", Double(port ?? 0)),
