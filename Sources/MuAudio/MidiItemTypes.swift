@@ -6,13 +6,13 @@ import AudioKit
 import MuFlo
 import MuPeers
 
-public struct MidiNoteItem: Codable {
+public struct MidiNoteItem: Codable, Sendable {
 
-    var num:  MIDINoteNumber
-    var velo: MIDIVelocity
-    var chan: MIDIChannel
-    var port: MIDIUniqueID?
-    var time: MIDITimeStamp?
+    let num:  MIDINoteNumber
+    let velo: MIDIVelocity
+    let chan: MIDIChannel
+    let port: MIDIUniqueID?
+    let time: MIDITimeStamp?
 
     init (_ num:  MIDINoteNumber,
           _ velo: MIDIVelocity,
@@ -27,13 +27,13 @@ public struct MidiNoteItem: Codable {
         self.time = time
     }
 }
-public struct MidiControllerItem: Codable {
+public struct MidiControllerItem: Codable, Sendable {
 
-    var cc  : MIDIByte
-    var velo: MIDIVelocity
-    var chan: MIDIChannel
-    var port: MIDIUniqueID?
-    var time: MIDITimeStamp?
+    let cc  : MIDIByte
+    let velo: MIDIVelocity
+    let chan: MIDIChannel
+    let port: MIDIUniqueID?
+    let time: MIDITimeStamp?
 
     init (_ cc  : MIDIByte,
           _ velo: MIDIVelocity,
@@ -48,13 +48,13 @@ public struct MidiControllerItem: Codable {
         self.time = time
     }
 }
-public struct MidiAftertouchItem: Codable {
+public struct MidiAftertouchItem: Codable, Sendable {
 
-    var num : MIDINoteNumber
-    var val : MIDIByte
-    var chan: MIDIChannel
-    var port: MIDIUniqueID?
-    var time: MIDITimeStamp?
+    let num : MIDINoteNumber
+    let val : MIDIByte
+    let chan: MIDIChannel
+    let port: MIDIUniqueID?
+    let time: MIDITimeStamp?
 
     init (_ num : MIDINoteNumber,
           _ val : MIDIByte,
@@ -69,12 +69,12 @@ public struct MidiAftertouchItem: Codable {
         self.time = time
     }
 }
-public struct MidiPitchbendItem: Codable {
+public struct MidiPitchbendItem: Codable, Sendable{
 
-    var val : MIDIWord
-    var chan: MIDIChannel
-    var port: MIDIUniqueID?
-    var time: MIDITimeStamp?
+    let val : MIDIWord
+    let chan: MIDIChannel
+    let port: MIDIUniqueID?
+    let time: MIDITimeStamp?
 
     init (_ val : MIDIWord,
           _ chan: MIDIChannel,
@@ -87,12 +87,12 @@ public struct MidiPitchbendItem: Codable {
         self.time = time
     }
 }
-public struct MidiProgramItem: Codable {
+public struct MidiProgramItem: Codable, Sendable {
 
-    var num : MIDIByte
-    var chan: MIDIChannel
-    var port: MIDIUniqueID?
-    var time: MIDITimeStamp?
+    let num : MIDIByte
+    let chan: MIDIChannel
+    let port: MIDIUniqueID?
+    let time: MIDITimeStamp?
 
     init (_ num : MIDIByte,
           _ chan: MIDIChannel,

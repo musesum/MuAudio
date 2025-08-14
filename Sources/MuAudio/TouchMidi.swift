@@ -3,14 +3,11 @@
 import UIKit
 import MuFlo 
 
-public protocol TouchRemoteMidiDelegate {
-    func remoteMidiItem(_ midiItem: MidiItem)
-}
 @MainActor
 public class TouchMidi: @unchecked Sendable {
 
     static var midiKey = [Int: TouchMidi]()
-    static var touchRemote: TouchRemoteMidiDelegate?
+    static var muMidi: MuMidi?
     private let buffer = CircleBuffer<MidiItem>()
     private let isRemote: Bool
 
@@ -33,7 +30,7 @@ extension TouchMidi: CircleBufferDelegate {
         lastItem = item
 
         if isRemote || type == .remoteBuf {
-            TouchMidi.touchRemote?.remoteMidiItem(item)
+            self.remoteMidiItem(item)
         } else {
             // local midi items already processed
         }
@@ -42,13 +39,29 @@ extension TouchMidi: CircleBufferDelegate {
 }
 extension TouchMidi {
 
-    public static func remoteItem(_ item: MidiItem) {
+    public static func remoteItem(_ item: MidiItem,
+    ) {
         if let touchMidi = midiKey[item.type.hashValue] {
             touchMidi.buffer.addItem(item, bufType: .remoteBuf)
         } else {
             let touchMidi = TouchMidi(isRemote: true)
             midiKey[item.type.hashValue] = touchMidi
             touchMidi.buffer.addItem(item, bufType: .remoteBuf)
+        }
+    }
+
+    public func remoteMidiItem(_ item: MidiItem) {
+        guard let kind = item.item else { return }
+        guard let muMidi = TouchMidi.muMidi else { return }
+        let flo = muMidi.listener.midiFlo
+        let v = Visitor(0, item.visitFrom + .remote)
+        switch kind {
+        case .noteOn     (let i): flo.noteOnIn     (i.num,i.velo,i.chan,i.port,i.time,v)
+        case .noteOff    (let i): flo.noteOffIn    (i.num,i.velo,i.chan,i.port,i.time,v)
+        case .controller (let i): flo.controllerIn (i.cc, i.velo,i.chan,i.port,i.time,v)
+        case .aftertouch (let i): flo.aftertouchIn (i.num,i.val, i.chan,i.port,i.time,v)
+        case .pitchbend  (let i): flo.pitchwheelIn (      i.val, i.chan,i.port,i.time,v)
+        case .program    (let i): flo.programIn    (i.num,       i.chan,i.port,i.time,v)
         }
     }
 }

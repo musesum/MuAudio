@@ -170,7 +170,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.noteOn, MidiNoteItem(num, velo, chan, port, time), peers)
+            _ = MidiItem(.noteOn, .noteOn(MidiNoteItem(num, velo, chan, port, time)), peers)
         }
     }
     
@@ -190,7 +190,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.noteOff, MidiNoteItem(num, velo, chan, port, time), peers)
+            _ = MidiItem(.noteOff, .noteOff(MidiNoteItem(num, velo, chan, port, time)), peers)
         }
     }
     
@@ -239,7 +239,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.controller, MidiControllerItem(cc,velo,chan,port,time), peers)
+            _ = MidiItem(.controller, .controller(MidiControllerItem(cc,velo,chan,port,time)), peers)
         }
     }
     
@@ -277,7 +277,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.aftertouch, MidiAftertouchItem(num, val,chan,port,time), peers)
+            _ = MidiItem(.aftertouch, .aftertouch(MidiAftertouchItem(num, val,chan,port,time)), peers)
         }
     }
     
@@ -296,7 +296,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.aftertouch, MidiAftertouchItem(0, val,chan,port,time), peers)
+            _ = MidiItem(.aftertouch, .aftertouch(MidiAftertouchItem(0, val,chan,port,time)), peers)
         }
     }
     
@@ -314,7 +314,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.pitchbend, MidiPitchbendItem(val,chan,port,time), peers)
+            _ = MidiItem(.pitchbend, .pitchbend(MidiPitchbendItem(val,chan,port,time)), peers)
         }
     }
     
@@ -332,7 +332,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.program, MidiProgramItem(num, chan, port, time), peers)
+            _ = MidiItem(.program, .program(MidiProgramItem(num, chan, port, time)), peers)
         }
     }
 }

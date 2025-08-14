@@ -19,6 +19,9 @@ public class MuAudio: @unchecked Sendable {
         self.muMidi = MuMidi(midi, root˚, peers)
         self.audioEngine = AudioEngine()
         self.peers = peers
+        Task { @MainActor in
+            TouchMidi.muMidi = muMidi
+        }
         peers.setDelegate(self, for: .midiFrame)
     }
 
@@ -47,5 +50,7 @@ extension MuAudio: PeersDelegate {
                 await TouchMidi.remoteItem(item)
             }
         }
+    }
+    public func shareItem(_ item: MidiItem) {
     }
 }
