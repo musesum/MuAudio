@@ -22,12 +22,12 @@ public struct MidiItem: Codable, Sendable {
     public let time: TimeInterval
     public let from: Int
 
-    public init(_ type: MidiType, _ item: MidiItemKind?, _ peers: Peers) {
+    public init(_ type: MidiType, _ item: MidiItemKind?, _ share: Share) {
         self.type = type
         self.item = item
         self.time = Date().timeIntervalSince1970
         self.from = VisitType.midi.rawValue
-        shareItem(peers)
+        shareItem(share)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -53,9 +53,9 @@ public struct MidiItem: Codable, Sendable {
     var visitFrom: VisitType {
         VisitType(rawValue: from)
     }
-    func shareItem(_ peers: Peers) {
+    func shareItem(_ share: Share) {
         Task {
-            await peers.sendItem(.midiFrame) {
+            await share.peers.sendItem(.midiFrame) {
                 do {
                     return try JSONEncoder().encode(self)
                 } catch {

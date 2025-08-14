@@ -13,10 +13,10 @@ public class MuMidi {
 
     public init(_ midi: MIDI,
                 _ root: Flo,
-                _ peers: Peers) {
+                _ share: Share) {
 
         self.midi = midi
-        listener = MuMidiListener(midi, root, peers)
+        listener = MuMidiListener(midi, root, share)
 
         midi.openInput()
         midi.addListener(listener)

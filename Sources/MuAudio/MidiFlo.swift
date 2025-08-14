@@ -37,32 +37,32 @@ class MidiFlo: @unchecked Sendable {
     
     public var setOps: SetOps = .fire
 
-    public var peers: Peers
+    public var share: Share
 
     init(_ midi: MIDI,
          _ root: Flo,
-         _ peers: Peers) {
+         _ share: Share) {
 
-        self.midi     = midi
-        self.peers    = peers
+        self.midi  = midi
+        self.share = share
 
-        let input     = root.bind("midi.input")
-        noteOnIn˚     = input.bind("note.on"   )
-        noteOffIn˚    = input.bind("note.off"  )
-        controllerIn˚ = input.bind("controller")
-        afterTouchIn˚ = input.bind("afterTouch")
-        pitchWheelIn˚ = input.bind("pitchWheel")
-        programIn˚    = input.bind("program"   )
-        nrpnIn˚       = input.bind("nrpn"      )
+        let i = root.bind("midi.input")
+        noteOnIn˚     = i.bind("note.on"   )
+        noteOffIn˚    = i.bind("note.off"  )
+        controllerIn˚ = i.bind("controller")
+        afterTouchIn˚ = i.bind("afterTouch")
+        pitchWheelIn˚ = i.bind("pitchWheel")
+        programIn˚    = i.bind("program"   )
+        nrpnIn˚       = i.bind("nrpn"      )
 
-        let output     = root.bind("midi.output")
-        noteOnOut˚     = output.bind("note.on"   ) { f,v in self.noteOnOut    (f,v) }
-        noteOffOut˚    = output.bind("note.off"  ) { f,v in self.noteOffOut   (f,v) }
-        controllerOut˚ = output.bind("controller") { f,v in self.controllerOut(f,v) }
-        afterTouchOut˚ = output.bind("afterTouch") { f,v in self.aftertouchOut(f,v) }
-        pitchWheelOut˚ = output.bind("pitchWheel") { f,v in self.pitchbendOut (f,v) }
-        programOut˚    = output.bind("program"   ) { f,v in self.programOut   (f,v) }
-        nrpnOut˚       = output.bind("nrpn"      )
+        let o = root.bind("midi.output")
+        noteOnOut˚     = o.bind("note.on"   ) { f,v in self.noteOnOut    (f,v) }
+        noteOffOut˚    = o.bind("note.off"  ) { f,v in self.noteOffOut   (f,v) }
+        controllerOut˚ = o.bind("controller") { f,v in self.controllerOut(f,v) }
+        afterTouchOut˚ = o.bind("afterTouch") { f,v in self.aftertouchOut(f,v) }
+        pitchWheelOut˚ = o.bind("pitchWheel") { f,v in self.pitchbendOut (f,v) }
+        programOut˚    = o.bind("program"   ) { f,v in self.programOut   (f,v) }
+        nrpnOut˚       = o.bind("nrpn"      )
     }
     // MARK: - output
 
@@ -170,7 +170,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.noteOn, .noteOn(MidiNoteItem(num, velo, chan, port, time)), peers)
+            _ = MidiItem(.noteOn, .noteOn(MidiNoteItem(num, velo, chan, port, time)), share)
         }
     }
     
@@ -190,7 +190,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.noteOff, .noteOff(MidiNoteItem(num, velo, chan, port, time)), peers)
+            _ = MidiItem(.noteOff, .noteOff(MidiNoteItem(num, velo, chan, port, time)), share)
         }
     }
     
@@ -239,7 +239,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.controller, .controller(MidiControllerItem(cc,velo,chan,port,time)), peers)
+            _ = MidiItem(.controller, .controller(MidiControllerItem(cc,velo,chan,port,time)), share)
         }
     }
     
@@ -277,7 +277,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.aftertouch, .aftertouch(MidiAftertouchItem(num, val,chan,port,time)), peers)
+            _ = MidiItem(.aftertouch, .aftertouch(MidiAftertouchItem(num, val,chan,port,time)), share)
         }
     }
     
@@ -296,7 +296,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.aftertouch, .aftertouch(MidiAftertouchItem(0, val,chan,port,time)), peers)
+            _ = MidiItem(.aftertouch, .aftertouch(MidiAftertouchItem(0, val,chan,port,time)), share)
         }
     }
     
@@ -314,15 +314,15 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.pitchbend, .pitchbend(MidiPitchbendItem(val,chan,port,time)), peers)
+            _ = MidiItem(.pitchbend, .pitchbend(MidiPitchbendItem(val,chan,port,time)), share)
         }
     }
     
     func programIn(_ num   : MIDIByte,
-                         _ chan  : MIDIChannel,
-                         _ port  : MIDIUniqueID?,
-                         _ time  : MIDITimeStamp?,
-                         _ visit : Visitor) {
+                   _ chan  : MIDIChannel,
+                   _ port  : MIDIUniqueID?,
+                   _ time  : MIDITimeStamp?,
+                   _ visit : Visitor) {
         
         programIn˚.setNameNums(
             [("num",  Double(num)),
@@ -332,7 +332,7 @@ class MidiFlo: @unchecked Sendable {
             setOps, visit)
         
         if !visit.type.has(.remote) {
-            _ = MidiItem(.program, .program(MidiProgramItem(num, chan, port, time)), peers)
+            _ = MidiItem(.program, .program(MidiProgramItem(num, chan, port, time)), share)
         }
     }
 }
