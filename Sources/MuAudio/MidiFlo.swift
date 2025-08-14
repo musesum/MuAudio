@@ -87,8 +87,8 @@ class MidiFlo: @unchecked Sendable {
                 velocity: MIDIVelocity(velo),
                 channel: MIDIChannel(chan))
         }
-        
     }
+    
     func noteOffOut(_ flo: Flo,
                     _ visit: Visitor) {
 
