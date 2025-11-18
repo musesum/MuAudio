@@ -12,9 +12,9 @@ class MuMidiListener: MIDIListener {
     var midi: MIDI
     init(_ midi: MIDI,
          _ root: Flo,
-         _ share: Share) {
+         _ peers: Peers) {
         self.midi = midi
-        midiFlo = MidiFlo(midi, root, share)
+        midiFlo = MidiFlo(midi, root, peers)
     }
 
     func noteStr(_ note: MIDINoteNumber) -> String {
