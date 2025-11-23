@@ -2,6 +2,7 @@
 
 import UIKit
 import MuFlo 
+import MuPeers
 
 @MainActor
 public class TouchMidi: @unchecked Sendable {
@@ -25,11 +26,11 @@ extension TouchMidi: CircleBufferDelegate {
 
     public typealias Item = MidiItem
 
-    public func flushItem<Item>(_ item: Item, _ type: BufType) -> BufState {
+    public func flushItem<Item>(_ item: Item, _ from: DataFrom) -> BufState {
         let item = item as! MidiItem
         lastItem = item
 
-        if isRemote || type == .remoteBuf {
+        if isRemote || from == .remote {
             self.remoteMidiItem(item)
         } else {
             // local midi items already processed
@@ -39,14 +40,13 @@ extension TouchMidi: CircleBufferDelegate {
 }
 extension TouchMidi {
 
-    public static func remoteItem(_ item: MidiItem,
-    ) {
+    public static func receiveItem(_ item: MidiItem, from: DataFrom) {
         if let touchMidi = midiKey[item.type.hashValue] {
-            touchMidi.buffer.addItem(item, bufType: .remoteBuf)
+            touchMidi.buffer.addItem(item, from: from)
         } else {
             let touchMidi = TouchMidi(isRemote: true)
             midiKey[item.type.hashValue] = touchMidi
-            touchMidi.buffer.addItem(item, bufType: .remoteBuf)
+            touchMidi.buffer.addItem(item, from: from)
         }
     }
 

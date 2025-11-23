@@ -43,11 +43,11 @@ public class MuAudio: @unchecked Sendable {
 }
 extension MuAudio: PeersDelegate {
 
-    public func received(data: Data) {
+    public func received(data: Data, from: DataFrom) {
         let decoder = JSONDecoder()
         if let item = try? decoder.decode(MidiItem.self, from: data) {
-            Task {
-                await TouchMidi.remoteItem(item)
+            Task { @MainActor in
+                TouchMidi.receiveItem(item, from: from)
             }
         }
     }
