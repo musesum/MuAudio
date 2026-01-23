@@ -11,18 +11,16 @@ public class MuAudio: @unchecked Sendable {
     let midi = MIDI()
     let muMidi: MuMidi
     let audioEngine: AudioEngine
-    let peers: Peers
 
-    public init(_ root˚: Flo,
-                _ peers: Peers) {
+    public init(_ root˚: Flo) {
 
-        self.muMidi = MuMidi(midi, root˚, peers)
+        self.muMidi = MuMidi(midi, root˚)
         self.audioEngine = AudioEngine()
-        self.peers = peers
         Task { @MainActor in
             TouchMidi.muMidi = muMidi
+            Peers.shared.addDelegate(self, for: .midiFrame)
         }
-        peers.addDelegate(self, for: .midiFrame)
+
     }
 
     public func testAudio() {
