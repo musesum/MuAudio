@@ -49,6 +49,6 @@ extension MuAudio: PeersDelegate {
             }
         }
     }
-    public func shareItem(_ item: MidiItem) {
+    public func shareItem(_ item: Any) {
     }
 }

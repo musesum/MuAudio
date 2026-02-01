@@ -53,6 +53,10 @@ public struct MidiItem: Codable, Sendable {
     var visitFrom: VisitType {
         VisitType(rawValue: from)
     }
+
+}
+
+extension MidiItem {
     func shareItem() {
         Task {
             await Peers.shared.sendItem(.midiFrame) {
