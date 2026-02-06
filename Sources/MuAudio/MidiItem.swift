@@ -7,16 +7,16 @@ import MuFlo
 import MuPeers
 
 public enum MidiItemKind: Codable, Sendable {
-    case noteOn(MidiNoteItem)
-    case noteOff(MidiNoteItem)
-    case controller(MidiControllerItem)
-    case aftertouch(MidiAftertouchItem)
-    case pitchbend(MidiPitchbendItem)
-    case program(MidiProgramItem)
+    case noteOn     (MidiNoteItem)
+    case noteOff    (MidiNoteItem)
+    case controller (MidiControllerItem)
+    case aftertouch (MidiAftertouchItem)
+    case pitchbend  (MidiPitchbendItem)
+    case program    (MidiProgramItem)
 }
 
 public struct MidiItem: Codable, Sendable {
-
+    public let uuid = UUID()
     public let type: MidiType
     public let item: MidiItemKind?
     public let time: TimeInterval
@@ -59,7 +59,7 @@ public struct MidiItem: Codable, Sendable {
 extension MidiItem {
     func shareItem() {
         Task {
-            await Peers.shared.sendItem(.midiFrame) {
+            await Peers.shared.sendItem(.midiItem) {
                 do {
                     return try JSONEncoder().encode(self)
                 } catch {

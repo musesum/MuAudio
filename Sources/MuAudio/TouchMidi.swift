@@ -50,6 +50,11 @@ extension TouchMidi {
         }
     }
 
+    public static func resetItem(_ item: MidiItem) {
+        //..... clear buffer, pair noteOff with noteOn
+        
+    }
+
     public func remoteMidiItem(_ item: MidiItem) {
         guard let kind = item.item else { return }
         guard let muMidi = TouchMidi.muMidi else { return }

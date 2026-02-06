@@ -18,7 +18,7 @@ public class MuAudio: @unchecked Sendable {
         self.audioEngine = AudioEngine()
         Task { @MainActor in
             TouchMidi.muMidi = muMidi
-            Peers.shared.addDelegate(self, for: .midiFrame)
+            Peers.shared.addDelegate(self, for: .midiItem)
         }
 
     }
@@ -49,6 +49,16 @@ extension MuAudio: PeersDelegate {
             }
         }
     }
+    public func resetItem(_ playItem: PlayItem) {
+        let decoder = JSONDecoder()
+        let data = playItem.data
+        if let item = try? decoder.decode(MidiItem.self, from: data) {
+            Task { @MainActor in
+                TouchMidi.resetItem(item)
+            }
+        }
+    }
     public func shareItem(_ item: Any) {
     }
+
 }
