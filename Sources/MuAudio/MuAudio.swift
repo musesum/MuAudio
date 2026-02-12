@@ -45,7 +45,7 @@ extension MuAudio: PeersDelegate {
         let decoder = JSONDecoder()
         if let item = try? decoder.decode(MidiItem.self, from: data) {
             Task { @MainActor in
-                TouchMidi.receiveItem(item, from: from)
+                TouchMidi.receiveItem_(item, from: from)
             }
         }
     }
@@ -59,6 +59,9 @@ extension MuAudio: PeersDelegate {
         }
     }
     public func shareItem(_ item: Any) {
+    }
+    public func playItem(_ item: PlayItem, from: DataFrom) {
+        received(data: item.data, from: from)
     }
 
 }

@@ -40,7 +40,7 @@ extension TouchMidi: CircleBufferDelegate {
 }
 extension TouchMidi {
 
-    public static func receiveItem(_ item: MidiItem, from: DataFrom) {
+    public static func receiveItem_(_ item: MidiItem, from: DataFrom) {
         if let touchMidi = midiKey[item.type.hashValue] {
             touchMidi.buffer.addItem(item, from: from)
         } else {
@@ -51,8 +51,8 @@ extension TouchMidi {
     }
 
     public static func resetItem(_ item: MidiItem) {
-        //..... clear buffer, pair noteOff with noteOn
-        
+        //..... clear buffer, pair noteOn with noteOff
+        // or maybe universal MIDI panic
     }
 
     public func remoteMidiItem(_ item: MidiItem) {
