@@ -30,7 +30,10 @@ extension TouchMidi: CircleBufferDelegate {
         let item = item as! MidiItem
         lastItem = item
 
-        if isRemote || from == .remote {
+        var isRemoteData = false
+        if case .remote = from { isRemoteData = true }
+
+        if isRemote || isRemoteData {
             self.remoteMidiItem(item)
         } else {
             // local midi items already processed

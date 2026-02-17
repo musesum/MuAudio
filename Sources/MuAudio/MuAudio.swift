@@ -63,5 +63,8 @@ extension MuAudio: PeersDelegate {
     public func playItem(_ item: PlayItem, from: DataFrom) {
         received(data: item.data, from: from)
     }
+    public func dropped(from: DataFrom) {
+        
+    }
 
 }
