@@ -54,7 +54,7 @@ extension TouchMidi {
     }
 
     public static func resetItem(_ item: MidiItem) {
-        //..... clear buffer, pair noteOn with noteOff
+        //.. clear buffer, pair noteOn with noteOff
         // or maybe universal MIDI panic
     }
 
