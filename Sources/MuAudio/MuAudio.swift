@@ -12,6 +12,10 @@ public class MuAudio: @unchecked Sendable {
     let muMidi: MuMidi
     let audioEngine: AudioEngine
 
+    /// live mic tap driven by `mic.input` (<> sky.mic.input):
+    /// y volume gates the mic (0 = off), x sweeps the band-pass
+    public let micTap = WaveAudioTap()
+
     public init(_ root˚: Flo) {
 
         self.muMidi = MuMidi(midi, root˚)
@@ -21,6 +25,13 @@ public class MuAudio: @unchecked Sendable {
             Peers.shared.addDelegate(self, for: .midiItem)
         }
 
+        if let input˚ = root˚.findPath("sky.mic.input") {
+            input˚.addClosure { [weak self] flo, _ in
+                let y = Float(flo.val("y") ?? 0) // v: volume
+                let w = Float(flo.val("w") ?? 0) // f: band-pass
+                self?.micTap.update(volume: y, bandNorm: w)
+            }
+        }
     }
 
     public func testAudio() {
